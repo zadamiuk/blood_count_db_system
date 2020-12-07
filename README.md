@@ -1,4 +1,3 @@
-
 zadanie:
 
 System rejestracji wyników badan laboratoryjnych. Zadaniem aplikacji jest zbieranie
@@ -10,3 +9,9 @@ wszystkich oznaczonych parametrów.
 link do WORD: 
 
 https://wutwaw-my.sharepoint.com/:w:/g/personal/01130406_pw_edu_pl/EXAF1Ek86gBFmP8xtmSWJBkB3mWoTTLnT8rKPH3HX5QnYw?e=I1tHvH
+
+link do Diagramów:
+
+https://drive.google.com/file/d/1K6zNvQvoMCZ7qB2jtwnxz8THYH3KY4vo/view?usp=sharing
+
+
