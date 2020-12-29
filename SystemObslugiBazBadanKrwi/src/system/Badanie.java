@@ -1,3 +1,5 @@
+package system;
+
 public class Badanie {
 
     private int idBadania;
