@@ -6,12 +6,19 @@ public class WidokGui extends JFrame {
 
     public WidokGui(){
         /*
+         * Główny Panel
+         */
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        this.getContentPane().add(mainPanel);
+
+        /*
          * Panel do dodawania nowego Pacjenta/ lub istniejącego wyniki badań krwi
          */
-        JPanel dodawanieInfo = new JPanel();
-        dodawanieInfo.setLayout(new BoxLayout(dodawanieInfo, BoxLayout.X_AXIS));
-
-        this.getContentPane().add(dodawanieInfo);
+        JPanel addPanel = new JPanel();
+        addPanel.setLayout(new BoxLayout(addPanel, BoxLayout.X_AXIS));
+        mainPanel.add(addPanel);
 
         /*
          * Lewy Panel odpowiedzialny za dodawanie informacji o Pacjent
@@ -19,7 +26,7 @@ public class WidokGui extends JFrame {
         JPanel dodPacjent = new JPanel();
         dodPacjent.setBorder(BorderFactory.createTitledBorder("Dane pacjenta"));
         dodPacjent.setLayout(new BoxLayout(dodPacjent, BoxLayout.Y_AXIS));
-        dodawanieInfo.add(dodPacjent);
+        addPanel.add(dodPacjent);
 
         //Panel PESEL
         JPanel subpanel = new JPanel();
@@ -38,6 +45,8 @@ public class WidokGui extends JFrame {
         TextPESEL.setMaximumSize(new Dimension(180,20));
         subpanel.add(TextPESEL);
 
+        subpanel.add(Box.createRigidArea(new Dimension(0,40)));
+
         //Panel Nazwisko
         subpanel = new JPanel();
         subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
@@ -54,6 +63,8 @@ public class WidokGui extends JFrame {
         TextNazwisko.setMinimumSize(new Dimension(180,20));
         TextNazwisko.setMaximumSize(new Dimension(180,20));
         subpanel.add(TextNazwisko);
+
+        subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
         //Panel Imię
         subpanel = new JPanel();
@@ -72,6 +83,8 @@ public class WidokGui extends JFrame {
         TextImie.setMaximumSize(new Dimension(180,20));
         subpanel.add(TextImie);
 
+        subpanel.add(Box.createRigidArea(new Dimension(0,40)));
+
         //Panel Płeć
         subpanel = new JPanel();
         subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
@@ -88,6 +101,8 @@ public class WidokGui extends JFrame {
         TextPlec.setMinimumSize(new Dimension(180,20));
         TextPlec.setMaximumSize(new Dimension(180,20));
         subpanel.add(TextPlec);
+
+        subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
         //Panel Wiek
         subpanel = new JPanel();
@@ -106,13 +121,15 @@ public class WidokGui extends JFrame {
         TextWiek.setMaximumSize(new Dimension(180,20));
         subpanel.add(TextWiek);
 
+        subpanel.add(Box.createRigidArea(new Dimension(0,40)));
+
         /*
          * Prawy Panel odpowiedzialny za dodawanie informacji o Badanie
          */
         JPanel dodBadanie = new JPanel();
         dodBadanie.setBorder(BorderFactory.createTitledBorder("Wyniki badania"));
         dodBadanie.setLayout(new BoxLayout(dodBadanie, BoxLayout.Y_AXIS));
-        dodawanieInfo.add(dodBadanie);
+        addPanel.add(dodBadanie);
 
         //Panel ID badania
         subpanel = new JPanel();
@@ -147,6 +164,8 @@ public class WidokGui extends JFrame {
         TextData.setMinimumSize(new Dimension(180,20));
         TextData.setMaximumSize(new Dimension(180,20));
         subpanel.add(TextData);
+
+        subpanel.add(Box.createRigidArea(new Dimension(0,50)));
 
         //Panel Leukocyty
         subpanel = new JPanel();
@@ -264,11 +283,10 @@ public class WidokGui extends JFrame {
         subpanel.add(LabelLimfoJed);
 
         //Przycisk ,,Zapisz"
-        JPanel Zapisz = new JPanel();
-        Zapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
-        Zapisz.setLayout(new BoxLayout(Zapisz, BoxLayout.Y_AXIS));
-        Zapisz.add(BorderLayout.CENTER, new JButton("Zapisz wyniki"));
-        dodawanieInfo.add(Zapisz);
+        JPanel ButtonZapisz = new JPanel();
+        ButtonZapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
+        ButtonZapisz.add(BorderLayout.CENTER, new JButton("Zapisz wyniki"));
+        mainPanel.add(ButtonZapisz);
 
 
 
