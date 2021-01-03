@@ -11,7 +11,8 @@ public class Main {
                 proba.setVisible(true);
                 TworzenieBazy proba2 = new TworzenieBazy();
                 proba2.tworzenieBazy();
-                proba2.dodanieRekordow();}
+                proba2.dodanieRekordow();
+                System.out.println(proba2);}
 
         }));
     };

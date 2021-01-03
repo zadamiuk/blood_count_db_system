@@ -51,7 +51,7 @@ public class TworzenieBazy {
                     stmt.execute("CREATE TABLE Badanie ( BadanieID INTEGER NOT NULL PRIMARY KEY " +
                             "GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1 )," +
                             "PESEL CHAR(11) NOT NULL REFERENCES Pacjent(PESEL), " +
-                            "DataWykonania TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," +
+                            "DataWykonania DATE NOT NULL DEFAULT CURRENT_DATE," +
                             "Leukocyty FLOAT NOT NULL," +
                             "Erytrocyty FLOAT NOT NULL," +
                             "Trombocyty FLOAT NOT NULL," +
@@ -115,8 +115,9 @@ public class TworzenieBazy {
 
                 //dodawanie wpisow do tabeli badan (polecenie proste)
                 stmt.executeUpdate("INSERT INTO Badanie (PESEL, DataWykonania, Leukocyty," +
-                        "Erytrocyty, Trombocyty, Monocyty, Limfocyty ) VALUES('12345678901','12','13','14','15'," +
-                        "'16', '11')");
+                        "Erytrocyty, Trombocyty, Monocyty, Limfocyty ) VALUES('12345678901','1998-05-16', 13.1 ,14.1," +
+                        " 15.1," +
+                        " 16.1, 11.1)");
 
             } catch (SQLException e) {
                 System.out.println("Blad przy wykonywaniu polecania\n");
