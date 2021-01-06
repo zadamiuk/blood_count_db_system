@@ -2,7 +2,7 @@ import kontroler.ZdarzenieGui;
 import model.Model;
 import widok.WidokGui;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  * Klasa startujaca aplikacje
@@ -14,9 +14,8 @@ public class Main {
      */
     public static void main(String[] args)
     {
-        SwingUtilities.invokeLater( new Runnable() {
-            public void run()
-            {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 //model
                 //AppModel m=new AppModel();
 
@@ -31,11 +30,12 @@ public class Main {
                 WidokGui w = new WidokGui(m);
 
                 //kontroler
-                ZdarzenieGui z =new ZdarzenieGui(w, m);
+                ZdarzenieGui z = new ZdarzenieGui(w, m);
                 w.setController(z);
 
                 w.setVisible(true);
             }
-         });
+        });
     }
+
 }
