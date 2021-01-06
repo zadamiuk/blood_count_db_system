@@ -1,7 +1,7 @@
 package model;
 
-/** Klasa reprezentujaca badanie
- *
+/**
+ *  Klasa reprezentujaca badanie
  */
 public class Badanie {
 
@@ -13,6 +13,16 @@ public class Badanie {
     private float trombocyty;
     private float monocyty;
     private float limfocyty;
+
+    public Badanie(String PESEL, String dataBadania, float leuk, float e, float  t, float m, float limf){
+        this.pesel = PESEL;
+        this.dataBadania = dataBadania;
+        this.leukocyty = leuk;
+        this.erytrocyty = e;
+        this.trombocyty = t;
+        this.monocyty = m;
+        this.limfocyty = limf;
+    }
 
     public int getIdBadania() {
         return idBadania;

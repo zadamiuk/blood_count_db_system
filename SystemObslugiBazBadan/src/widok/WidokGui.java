@@ -1,40 +1,44 @@
 package widok;
 
+import kontroler.ZdarzenieGui;
 import model.Badanie;
-import model.BadanieModel;
 import model.Pacjent;
-import model.PacjentModel;
+import model.Model;
 
 import javax.swing.*;
 import java.awt.*;
 
-/**Klasa odpowiedzialana za widok aplikacji
- *
+/**
+ * Klasa odpowiedzialana za widok aplikacji
  */
 public class WidokGui extends JFrame {
 
-    private BadanieModel BadModel = null;
-    private PacjentModel PacModel = null;
+    private Model model = null;
 
-    private JTextField TextPESEL, TextNazwisko, TextImie, TextPlec, TextWiek;
+    private JTextField TextPESEL, TextNazwisko, TextImie, TextPlec, TextWiek, TextIDBadania, TextData, TextLeuko,
+                                            TextErytro, TextTrombo, TextMono, TextLimfo;
+
+    private JButton PrzyciskZapisz = null;
 
     /**
      * Konstruktor
-     * @param b
-     * @param p
+     * @param m
      */
-    public WidokGui(BadanieModel b, PacjentModel p){
+    public WidokGui(Model m){
 
-        this.BadModel = b;
-        this.PacModel = p;
+        this.model = m;
 
         this.createGui();
     }
 
+    /**
+     * Metoda tworzaca pacjenta na podstawie pol edycyjnych
+     * @return
+     */
     public Pacjent getPacjent(){
         Pacjent p = null;
 
-        int PESEL = Integer.parseInt(this.TextPESEL.getText());
+        String PESEL = this.TextPESEL.getText();
         String nazwisko = this.TextNazwisko.getText();
         String imie = this.TextImie.getText();
         String plec = this.TextPlec.getText();
@@ -45,6 +49,27 @@ public class WidokGui extends JFrame {
         }
 
         return(p);
+    }
+
+    /**
+     * Metoda tworzaca badanie na podstawie pol edycyjnych
+     */
+    public Badanie getBadanie(){
+        Badanie b = null;
+
+        String PESEL = this.TextPESEL.getText();
+        String dataBadania = this.TextData.getText();
+        float leukocyty = Float.parseFloat(this.TextLeuko.getText());
+        float erytrocyty = Float.parseFloat(this.TextErytro.getText());
+        float trombocyty = Float.parseFloat(this.TextTrombo.getText());
+        float monocyty = Float.parseFloat(this.TextTrombo.getText());
+        float limfocyty = Float.parseFloat(this.TextLimfo.getText());
+
+        if (!dataBadania.isBlank()){
+            b = new Badanie(PESEL, dataBadania, leukocyty,erytrocyty, trombocyty, monocyty, limfocyty);
+        }
+
+        return (b);
     }
 
 
@@ -189,11 +214,11 @@ public class WidokGui extends JFrame {
         LabelIDBadania.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelIDBadania);
 
-        JTextField TextIDBadania = new JTextField();
-        TextIDBadania.setPreferredSize(new Dimension(180,20));
-        TextIDBadania.setMinimumSize(new Dimension(180,20));
-        TextIDBadania.setMaximumSize(new Dimension(180,20));
-        subpanel.add(TextIDBadania);
+        this.TextIDBadania = new JTextField();
+        this.TextIDBadania.setPreferredSize(new Dimension(180,20));
+        this.TextIDBadania.setMinimumSize(new Dimension(180,20));
+        this.TextIDBadania.setMaximumSize(new Dimension(180,20));
+        subpanel.add(this.TextIDBadania);
 
         //Panel Data
         subpanel = new JPanel();
@@ -206,11 +231,11 @@ public class WidokGui extends JFrame {
         LabelData.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelData);
 
-        JTextField TextData = new JTextField();
-        TextData.setPreferredSize(new Dimension(180,20));
-        TextData.setMinimumSize(new Dimension(180,20));
-        TextData.setMaximumSize(new Dimension(180,20));
-        subpanel.add(TextData);
+        this.TextData = new JTextField();
+        this.TextData.setPreferredSize(new Dimension(180,20));
+        this.TextData.setMinimumSize(new Dimension(180,20));
+        this.TextData.setMaximumSize(new Dimension(180,20));
+        subpanel.add(this.TextData);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,50)));
 
@@ -225,11 +250,11 @@ public class WidokGui extends JFrame {
         LabelLeuko.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelLeuko);
 
-        JTextField TextLeuko = new JTextField();
-        TextLeuko.setPreferredSize(new Dimension(50,20));
-        TextLeuko.setMinimumSize(new Dimension(50,20));
-        TextLeuko.setMaximumSize(new Dimension(50,20));
-        subpanel.add(TextLeuko);
+        this.TextLeuko = new JTextField();
+        this.TextLeuko.setPreferredSize(new Dimension(50,20));
+        this.TextLeuko.setMinimumSize(new Dimension(50,20));
+        this.TextLeuko.setMaximumSize(new Dimension(50,20));
+        subpanel.add(this.TextLeuko);
 
         JLabel LabelLeukoJed = new JLabel("tys/l");
         LabelLeukoJed.setPreferredSize(new Dimension(50,20));
@@ -248,11 +273,11 @@ public class WidokGui extends JFrame {
         LabelErytro.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelErytro);
 
-        JTextField TextErytro = new JTextField();
-        TextErytro.setPreferredSize(new Dimension(50,20));
-        TextErytro.setMinimumSize(new Dimension(50,20));
-        TextErytro.setMaximumSize(new Dimension(50,20));
-        subpanel.add(TextErytro);
+        this.TextErytro = new JTextField();
+        this.TextErytro.setPreferredSize(new Dimension(50,20));
+        this.TextErytro.setMinimumSize(new Dimension(50,20));
+        this.TextErytro.setMaximumSize(new Dimension(50,20));
+        subpanel.add(this.TextErytro);
 
         JLabel LabelErytroJed = new JLabel("tys/l");
         LabelErytroJed.setPreferredSize(new Dimension(50,20));
@@ -271,11 +296,11 @@ public class WidokGui extends JFrame {
         LabelTrombo.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelTrombo);
 
-        JTextField TextTrombo = new JTextField();
-        TextTrombo.setPreferredSize(new Dimension(50,20));
-        TextTrombo.setMinimumSize(new Dimension(50,20));
-        TextTrombo.setMaximumSize(new Dimension(50,20));
-        subpanel.add(TextTrombo);
+        this.TextTrombo = new JTextField();
+        this.TextTrombo.setPreferredSize(new Dimension(50,20));
+        this.TextTrombo.setMinimumSize(new Dimension(50,20));
+        this.TextTrombo.setMaximumSize(new Dimension(50,20));
+        subpanel.add(this.TextTrombo);
 
         JLabel LabelTromboJed = new JLabel("tys/l");
         LabelTromboJed.setPreferredSize(new Dimension(50,20));
@@ -294,11 +319,11 @@ public class WidokGui extends JFrame {
         LabelMono.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelMono);
 
-        JTextField TextMono = new JTextField();
-        TextMono.setPreferredSize(new Dimension(50,20));
-        TextMono.setMinimumSize(new Dimension(50,20));
-        TextMono.setMaximumSize(new Dimension(50,20));
-        subpanel.add(TextMono);
+        this.TextMono = new JTextField();
+        this.TextMono.setPreferredSize(new Dimension(50,20));
+        this.TextMono.setMinimumSize(new Dimension(50,20));
+        this.TextMono.setMaximumSize(new Dimension(50,20));
+        subpanel.add(this.TextMono);
 
         JLabel LabelMonoJed = new JLabel("tys/l");
         LabelMonoJed.setPreferredSize(new Dimension(50,20));
@@ -317,11 +342,11 @@ public class WidokGui extends JFrame {
         LabelLimfo.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelLimfo);
 
-        JTextField TextLimfo = new JTextField();
-        TextLimfo.setPreferredSize(new Dimension(50,20));
-        TextLimfo.setMinimumSize(new Dimension(50,20));
-        TextLimfo.setMaximumSize(new Dimension(50,20));
-        subpanel.add(TextLimfo);
+        this.TextLimfo = new JTextField();
+        this.TextLimfo.setPreferredSize(new Dimension(50,20));
+        this.TextLimfo.setMinimumSize(new Dimension(50,20));
+        this.TextLimfo.setMaximumSize(new Dimension(50,20));
+        subpanel.add(this.TextLimfo);
 
         JLabel LabelLimfoJed = new JLabel("tys/l");
         LabelLimfoJed.setPreferredSize(new Dimension(50,20));
@@ -331,14 +356,19 @@ public class WidokGui extends JFrame {
 
         //Przycisk ,,Zapisz"
         JPanel ButtonZapisz = new JPanel();
-        JButton PrzyciskZapisz = new JButton("Zapisz wyniki");
-        PrzyciskZapisz.setBackground(Color.decode("#EA6B66"));
-        ButtonZapisz.add(PrzyciskZapisz, BorderLayout.CENTER);
+        this.PrzyciskZapisz = new JButton("Zapisz wyniki");
+        this.PrzyciskZapisz.setActionCommand("addRekord");
+        this.PrzyciskZapisz.setBackground(Color.decode("#EA6B66"));
+        ButtonZapisz.add(this.PrzyciskZapisz, BorderLayout.CENTER);
         ButtonZapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
         mainPanel.add(ButtonZapisz);
 
         this.setTitle("Dodawanie informacji");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+    }
+
+    public void setController(ZdarzenieGui z) {
+        this.PrzyciskZapisz.addActionListener(z);
     }
 }
