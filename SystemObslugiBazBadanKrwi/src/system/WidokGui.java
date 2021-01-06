@@ -284,8 +284,10 @@ public class WidokGui extends JFrame {
 
         //Przycisk ,,Zapisz"
         JPanel ButtonZapisz = new JPanel();
+        JButton PrzyciskZapisz = new JButton("Zapisz wyniki");
+        PrzyciskZapisz.setBackground(Color.decode("#EA6B66"));
+        ButtonZapisz.add(PrzyciskZapisz, BorderLayout.CENTER);
         ButtonZapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
-        ButtonZapisz.add(BorderLayout.CENTER, new JButton("Zapisz wyniki"));
         mainPanel.add(ButtonZapisz);
 
 
