@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SystemObslugiBazBadan/SystemObslugiBazBadan.iml" filepath="$PROJECT_DIR$/SystemObslugiBazBadan/SystemObslugiBazBadan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SystemObslugiBazBadanKrwi/SystemObslugiBazBadanKrwi.iml" filepath="$PROJECT_DIR$/SystemObslugiBazBadanKrwi/SystemObslugiBazBadanKrwi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ismed2020z_adamiuk_krakowiak.iml" filepath="$PROJECT_DIR$/.idea/ismed2020z_adamiuk_krakowiak.iml" />
+    </modules>
+  </component>
+</project>
