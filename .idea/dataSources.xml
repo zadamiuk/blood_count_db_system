@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MojaBaza" uuid="c7a10e3e-1ff1-48b7-9eba-5820ec8f82f9">
-      <driver-ref>derby.embedded</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
-      <jdbc-url>jdbc:derby:MojaBaza;create=true</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="MojaBazaTestTEST" uuid="e7b2ac3e-0c90-41c9-a05b-93a127028265">
+    <data-source source="LOCAL" name="MojaBazaTestTEST" uuid="fa587625-2e4a-479a-abef-625b0f11d7d2">
       <driver-ref>derby.embedded</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>

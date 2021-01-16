@@ -13,7 +13,7 @@ public class Model {
      * Przygotowanie do stworzenia systemu bazodanowego Apache Derby - tryb embedded
      */
     public static final String JDBC_DRIVER="org.apache.derby.jdbc.EmbeddedDriver";
-    public static final String DB_URL="jdbc:derby:MojaBazaTestTEST;create=true";
+    public static final String DB_URL="jdbc:derby:BazaBadan;create=true";
     public static final String DB_USER="";
     public static final String DB_PASSWORD="";
 
