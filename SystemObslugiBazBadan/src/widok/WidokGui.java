@@ -57,7 +57,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda ustawiająca pola edycyjne na podstawie pacjenta <- moze sie przyda
+     * Metoda ustawiająca pola edycyjne na podstawie Pacjenta
      * @param p
      */
     public void setPacjent(Pacjent p){
