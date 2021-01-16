@@ -60,6 +60,11 @@ public class Model {
                             "Plec VARCHAR(1) NOT NULL," +
                             "Wiek INTEGER NOT NULL )");
 
+                    stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
+                            "VALUES ('980516','Krakowiak','Aleksandra','K',22)");
+                    stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
+                            "VALUES ('990205','Adamiuk','Zuzanna','K',21)");
+
                     System.out.println("Utworzono tabele Pacjent");
                 }
 
@@ -74,23 +79,14 @@ public class Model {
                             "Monocyty FLOAT NOT NULL," +
                             "Limfocyty FLOAT NOT NULL)");
 
+                    stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty," +
+                            "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
+                            "VALUES ('980516','07.01.2020',2,3,4,5,6)");
+
 
                     System.out.println("Utworzono tabele Badanie");
                 }
 
-                //dodawanie informacji do tabeli Pacjent
-                stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
-                        "VALUES ('980516','Krakowiak','Aleksandra','K',22)");
-                stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
-                        "VALUES ('990205','Adamiuk','Zuzanna','K',21)");
-
-                //dodawanie informacji do tabeli Badanie
-                stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty, " +
-                        "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
-                        "VALUES ('990205','06.01.2020',5,6,7,8,9)");
-                stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty," +
-                        "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
-                        "VALUES ('980516','07.01.2020',2,3,4,5,6)");
             }
             catch (SQLException e)
             {
