@@ -1,5 +1,6 @@
 package model;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,30 +126,175 @@ public class Model {
         return(exists);
     }
 
+    /**
+     * Metoda do dodawania obiektów do bazy danych
+     * @param p Pacjent
+     */
+    public void addPacjent(Pacjent p){
+        /**
+         * Rejestrowanie streownika bazy danych
+         */
+        try {
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Sterownik bazy danych zostal wczytany\n");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Blad przy wczytywaniu sterownika\n");
+            e.printStackTrace();
+            System.exit(1);
+        }
 
-    //void insert(Pacjent p){};
+        /*
+         * Tworzenie polaczenia z baza danych
+         */
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            System.out.println("Polaczenie z baza danych: " + conn.getMetaData().getURL());
 
-   //Pacjent selectByPesel(String pesel){
-       ///return null;
-   //};
+            /*
+             * Wykonywanie polecen SQL - pobieranie informacji od użytkownika i dodawanie do bazy
+             */
+            try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Pacjent(PESEL, Nazwisko, Imie, Plec, Wiek) " +
+                    "VALUES (?,?,?,?,?)")) {
+                stmt.setString(1, p.getPesel());
+                stmt.setString(2, p.getNazwisko());
+                stmt.setString(3, p.getImie());
+                stmt.setString(4, p.getPlec());
+                stmt.setString(5, String.valueOf(p.getWiek()));
 
-    //List<Pacjent> selectAll() {
-       // return null;
-   // }
+                stmt.executeUpdate();
 
-    //void update(Pacjent p, int id){};
+            } catch (SQLException e) {
+                System.out.println("Blad przy wykonywaniu polecania\n");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Blad przy wykonywaniu polecania\n");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodado dodawania obiektów do bazy danych
+     * @param b Badanie
+     */
+    public void addBadanie(Badanie b){
+        /**
+         * Rejestrowanie streownika bazy danych
+         */
+        try {
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Sterownik bazy danych zostal wczytany\n");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Blad przy wczytywaniu sterownika\n");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        /*
+         * Tworzenie polaczenia z baza danych
+         */
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            System.out.println("Polaczenie z baza danych: " + conn.getMetaData().getURL());
+
+            /*
+             * Wykonywanie polecen SQL - pobieranie informacji od użytkownika i dodawanie do bazy
+             */
+            try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Badanie (PESELBadanie, DataBadania, " +
+                    "Leukocyty, Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY) VALUES (?,?,?,?,?,?,?)")){
+                stmt.setString(1, b.getPesel());
+                stmt.setString(2, b.getDataBadania());
+                stmt.setString(3, String.valueOf(b.getLeukocyty()));
+                stmt.setString(4, String.valueOf(b.getErytrocyty()));
+                stmt.setString(5, String.valueOf(b.getTrombocyty()));
+                stmt.setString(6, String.valueOf(b.getMonocyty()));
+                stmt.setString(7, String.valueOf(b.getLimfocyty()));
+
+                stmt.executeUpdate();
+
+            } catch(SQLException e){
+                System.out.println("Blad przy wykonywaniu polecania\n");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Blad przy wykonywaniu polecania\n");
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Metoda szukajaca czy dany Pacjent istnieje w bazie
+     * @param PESEL atrybut szukający
+     * @return
+     */
+    public Pacjent findPacjent(String PESEL){
+
+        Pacjent p = null;
+
+        /**
+         * Rejestrowanie streownika bazy danych
+         */
+        try {
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Sterownik bazy danych zostal wczytany\n");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Blad przy wczytywaniu sterownika\n");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        /*
+         * Tworzenie polaczenia z baza danych
+         */
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+
+            System.out.println("Polaczenie z baza danych: " + conn.getMetaData().getURL());
+
+            /*
+             * Wykonywanie polecen SQL - szuka wprowadzonego PESEL
+             */
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Pacjent WHERE PESEL =?")){
+
+                stmt.setString(1, PESEL);
+
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next() == false) {
+                    System.out.println("Taki pacjent jeszcze nie istnieje");
+                    return null;
+                } else {
+                    p = new Pacjent(rs.getString("PESEL"),
+                            rs.getString("Nazwisko"), rs.getString("Imie"),
+                            rs.getString("Plec"), rs.getInt("Wiek"));
+                    System.out.println(p.getNazwisko());
+                }
+
+            } catch (SQLException e) {
+                System.out.println("Blad przy wykonywaniu polecania\n");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Blad przy wykonywaniu polecania\n");
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    /**
+     * Metoda sprawdzajaca czy dany Pacjent istnieje w bazie
+     * @param pesel atrybut sprawdzajacy
+     * @return
+     */
+    public boolean checkPacjent(String pesel) {
+        if (findPacjent(pesel)!= null) {
+            return true;
+        }
+        return false;
+    }
 
     public Model(){
     }
 
-    private List<Pacjent> pacjentList = new ArrayList<Pacjent>();;
-    private List<Badanie> badanieList = new ArrayList<Badanie>();;
-
-
-    public boolean add(Pacjent p, Badanie b){
-        if(!this.pacjentList.contains(p)){
-            return(this.pacjentList.add(p) && this.badanieList.add(b));
-        }
-        return (this.badanieList.add(b));
-    }
 }
