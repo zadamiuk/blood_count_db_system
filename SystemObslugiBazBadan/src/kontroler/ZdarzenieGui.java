@@ -12,14 +12,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Klasa reprezentująca zdarzenia występujące w aplikacji
+ */
 public class ZdarzenieGui implements ActionListener {
 
     private WidokGui widok = null;
     private Model model = null;
-
-    public static final String DB_URL="jdbc:derby:MojaBazaDanych;create=true";
-    public static final String DB_USER="";
-    public static final String DB_PASSWORD="";
 
     /**
      * Konstruktor

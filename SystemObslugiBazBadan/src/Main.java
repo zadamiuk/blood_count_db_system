@@ -20,7 +20,7 @@ public class Main {
                 //model
                 Model m = new Model();
                 //tylko raz można wywołać
-                m.ConnCreateInsert();
+                //m.ConnCreateInsert();
 
                 //widok
                 WidokGui w = new WidokGui(m);

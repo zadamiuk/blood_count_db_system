@@ -4,8 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Klasa reprezentująca Model
- *
+/**
+ * Klasa reprezentująca Model
  */
 public class Model {
 
@@ -20,7 +20,6 @@ public class Model {
     /**
      * Metoda odpowiedzialna za połaczenie i stworzenie bazy oraz uzupełnienie początkowymi danymi
      */
-
     public void ConnCreateInsert(){
 
         /**
@@ -105,6 +104,13 @@ public class Model {
         }
     }
 
+    /**
+     * Funkcja sprawdzająca czy istnieje tabela o podanej nazwie
+     * @param conn otwarte polaczenie
+     * @param tableName nazwa tabeli
+     * @return
+     * @throws SQLException
+     */
     public static boolean tableExists(Connection conn, String tableName) throws SQLException
     {
         boolean exists=false;
