@@ -16,15 +16,11 @@ public class Main {
     {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                //model
-                //AppModel m=new AppModel();
-
-                //m.add(new Patient("Jan Kowalski","75101500123",false));
-                //m.add(new Patient("Agata Malinowska","70091000453",true));
-                //m.add(new Patient("Ktos Inny","11111111111",true));
 
                 //model
                 Model m = new Model();
+                //tylko raz można wywołać
+                m.ConnCreateInsert();
 
                 //widok
                 WidokGui w = new WidokGui(m);

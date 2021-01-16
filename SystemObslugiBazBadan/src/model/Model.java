@@ -4,29 +4,28 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/** Klasa reprezentująca Model
+ *
+ */
 public class Model {
 
+    /**
+     * Przygotowanie do stworzenia systemu bazodanowego Apache Derby - tryb embedded
+     */
     public static final String JDBC_DRIVER="org.apache.derby.jdbc.EmbeddedDriver";
-    public static final String DB_URL="jdbc:derby:MojaBaza;create=true";
+    public static final String DB_URL="jdbc:derby:MojaBazaTestTEST;create=true";
     public static final String DB_USER="";
     public static final String DB_PASSWORD="";
 
-    public Model(){
-    }
+    /**
+     * Metoda odpowiedzialna za połaczenie i stworzenie bazy oraz uzupełnienie początkowymi danymi
+     */
 
-    private List<Pacjent> pacjentList = new ArrayList<Pacjent>();;
-    private List<Badanie> badanieList = new ArrayList<Badanie>();;
+    public void ConnCreateInsert(){
 
-
-    public boolean add(Pacjent p, Badanie b){
-        if(!this.pacjentList.contains(p)){
-            return(this.pacjentList.add(p) && this.badanieList.add(b));
-        }
-        return (this.badanieList.add(b));
-    }
-
-    public void test(){
+        /**
+         * Rejestrowanie streownika bazy danych
+         */
         try
         {
             Class.forName(JDBC_DRIVER);
@@ -47,45 +46,51 @@ public class Model {
             System.out.println("Polaczenie z baza danych: " + conn.getMetaData().getURL());
 
             /*
-             * Wykonywanie polecen SQL (tworzenie tabel)
+             * Wykonywanie polecen SQL (tworzenie tabel i dodawanie bazowych informacji)
              */
             try (Statement stmt = conn.createStatement())
             {
-
-                //try
-                //{
-                //	stmt.execute("DROP TABLE Tests");
-                //	stmt.execute("DROP TABLE Patients");
-                //}
-                //catch (Exception e) {}
-
-                if (!tableExists(conn,"Patients"))
+                if (!tableExists(conn,"Pacjent"))
                 {
-                    stmt.execute("CREATE TABLE Patients" +
-                            "(" +
-                            "PatientId		INTEGER NOT NULL PRIMARY KEY" +
-                            "				GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +	//Derby
-                            //"				AUTO_INCREMENT," + 	//H2, MySQL
-                            "Name			VARCHAR(128) NOT NULL," +
-                            "Pesel			CHAR(11) NOT NULL UNIQUE" +
-                            ")");
+                    stmt.execute("CREATE TABLE Pacjent (idPacjent INTEGER NOT NULL PRIMARY KEY " +
+                            "GENERATED ALWAYS AS IDENTITY (START WITH 1,INCREMENT BY 1)," +
+                            "PESEL VARCHAR(128) NOT NULL UNIQUE," +
+                            "Nazwisko VARCHAR(128) NOT NULL," +
+                            "Imie VARCHAR(128) NOT NULL," +
+                            "Plec VARCHAR(1) NOT NULL," +
+                            "Wiek INTEGER NOT NULL )");
 
-                    System.out.println("Utworzono tabele Patients");
+                    System.out.println("Utworzono tabele Pacjent");
                 }
 
-                if (!tableExists(conn,"Tests"))
+                if (!tableExists(conn,"Badanie"))
                 {
-                    stmt.execute("CREATE TABLE Tests" +
-                            "(" +
-                            "TestId		INTEGER NOT NULL PRIMARY KEY" +
-                            "				GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +	//Derby
-                            //"				AUTO_INCREMENT," +	//H2, MySQL
-                            "Result		INTEGER NOT NULL," +
-                            "PatientId		INTEGER NOT NULL REFERENCES Patients(PatientId)" +
-                            ")");
+                    stmt.execute("CREATE TABLE Badanie (idBadania INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                            "PESELBadanie VARCHAR(128) NOT NULL REFERENCES Pacjent(PESEL)," +
+                            "DataBadania VARCHAR(128) NOT NULL," +
+                            "Leukocyty FLOAT NOT NULL," +
+                            "Erytrocyty FLOAT NOT NULL," +
+                            "Trombocyty FLOAT NOT NULL," +
+                            "Monocyty FLOAT NOT NULL," +
+                            "Limfocyty FLOAT NOT NULL)");
 
-                    System.out.println("Utworzono tabele Tests");
+
+                    System.out.println("Utworzono tabele Badanie");
                 }
+
+                //dodawanie informacji do tabeli Pacjent
+                stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
+                        "VALUES ('980516','Krakowiak','Aleksandra','K',22)");
+                stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
+                        "VALUES ('990205','Adamiuk','Zuzanna','K',21)");
+
+                //dodawanie informacji do tabeli Badanie
+                stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty, " +
+                        "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
+                        "VALUES ('990205','06.01.2020',5,6,7,8,9)");
+                stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty," +
+                        "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
+                        "VALUES ('980516','07.01.2020',2,3,4,5,6)");
             }
             catch (SQLException e)
             {
@@ -127,5 +132,17 @@ public class Model {
 
     //void update(Pacjent p, int id){};
 
+    public Model(){
+    }
 
+    private List<Pacjent> pacjentList = new ArrayList<Pacjent>();;
+    private List<Badanie> badanieList = new ArrayList<Badanie>();;
+
+
+    public boolean add(Pacjent p, Badanie b){
+        if(!this.pacjentList.contains(p)){
+            return(this.pacjentList.add(p) && this.badanieList.add(b));
+        }
+        return (this.badanieList.add(b));
+    }
 }
