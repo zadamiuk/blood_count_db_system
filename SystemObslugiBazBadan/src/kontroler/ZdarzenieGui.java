@@ -48,5 +48,22 @@ public class ZdarzenieGui implements ActionListener {
         else{
             System.out.println("Mamy problem!");
         }
+
+        if (e.getActionCommand().equals("dodajBadanie")){
+            this.widok.oknoDodaj();
+
+            System.out.println("Wybrano opcję - Dodaj badanie");
+        } else {
+            System.out.println("Mamy problem!");
+        }
+
+        if (e.getActionCommand().equals("przegladajBadania")){
+            this.widok.oknoDodaj();
+
+            System.out.println("Wybrano opcję - Przeglądaj");
+        } else {
+            System.out.println("Mamy problem!");
+        }
+
     }
 }

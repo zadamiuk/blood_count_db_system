@@ -72,17 +72,14 @@ public class WidokGui extends JFrame {
         return (b);
     }
 
+    public void oknoDodaj(){
 
-    /**
-     * Metoda definiujaca wyglad aplikacji
-     */
-    private void createGui(){
         /*
-         * Główny Panel
+         * Panel do dodawania nowego Pacjenta lub Badania
          */
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
         this.getContentPane().add(mainPanel);
 
         /*
@@ -368,7 +365,63 @@ public class WidokGui extends JFrame {
         this.pack();
     }
 
+    public void oknoPrzegladaj(){}
+
+    /**
+     * Metoda definiujaca wyglad aplikacji
+     */
+    private void createGui(){
+
+        /*
+         * Panel okna startowego aplikacji
+         */
+        JFrame homePage = new JFrame("ZUAL");
+        homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        homePage.setSize(400,250);
+        /*
+         * Panel tytułowy
+         */
+        JPanel welcomeMessage = new JPanel();
+        welcomeMessage.setSize(250, 150);
+        GridLayout opisGrid = new GridLayout(2,1,0,0);
+        welcomeMessage.setLayout(opisGrid);
+
+        JLabel ZUAL = new JLabel("ZUAL",SwingConstants.CENTER);
+        ZUAL.setPreferredSize(new Dimension(250, 100));
+        ZUAL.setFont(new Font("Calibri", Font.PLAIN, 70));
+        welcomeMessage.add(ZUAL, BorderLayout.CENTER);
+        JLabel systemOpis = new JLabel("System obsługi bazy badań krwi",SwingConstants.CENTER);
+        systemOpis.setPreferredSize(new Dimension(250, 50));
+        systemOpis.setFont(new Font("Calibri", Font.PLAIN, 25));
+        welcomeMessage.add(systemOpis, BorderLayout.CENTER);
+
+        homePage.add(welcomeMessage,BorderLayout.CENTER);
+
+        /*
+         * Panel z przyciskami do wyboru funkcji, z której funkcji chce korzystać użytkownik
+         */
+        JPanel buttons = new JPanel();
+
+        JButton bPrzegladaj = new JButton("Przegladaj");
+        bPrzegladaj.setBackground(Color.decode("#EA6B66"));
+        bPrzegladaj.setActionCommand("przegladajBadania");
+        bPrzegladaj.setMargin(new Insets(5, 10, 5, 10));
+        buttons.add(bPrzegladaj, BorderLayout.CENTER);
+
+        JButton bDodaj = new JButton("Dodaj badanie");
+        bDodaj.setBackground(Color.decode("#EA6B66"));
+        bDodaj.setActionCommand("dodajBadanie");
+        bDodaj.setMargin(new Insets(5, 10, 5, 10));
+        buttons.add(bDodaj, BorderLayout.CENTER);
+
+        homePage.add(buttons, BorderLayout.SOUTH);
+        homePage.setVisible(true);
+
+        //oknoDodaj();
+        oknoPrzegladaj();
+    }
     public void setController(ZdarzenieGui z) {
         this.PrzyciskZapisz.addActionListener(z);
     }
+
 }
