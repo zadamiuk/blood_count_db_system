@@ -11,15 +11,20 @@ import java.awt.*;
 /**
  * Klasa odpowiedzialana za widok aplikacji
  */
-public class WidokGui extends JFrame {
+public class WidokGui extends JFrame{
 
     private Model model = null;
 
     private JTextField TextPESEL, TextNazwisko, TextImie, TextPlec, TextWiek, TextIDBadania, TextData, TextLeuko,
                                             TextErytro, TextTrombo, TextMono, TextLimfo;
 
-    private JButton PrzyciskZapisz = null;
-    private JButton sprawdzPacjent = null;
+    private JButton PrzyciskZapisz;
+    private JButton sprawdzPacjent;
+
+    private JButton sprawdzWyniki;
+
+    private JButton bDodaj;
+    private JButton bPrzegladaj;
 
     /**
      * Konstruktor
@@ -95,8 +100,6 @@ public class WidokGui extends JFrame {
 
         return (b);
     }
-
-    public void oknoDodaj(){
     /**
      * Metoda odpowiedzialna za oczyszczanie pól tekstowych
      */
@@ -114,13 +117,18 @@ public class WidokGui extends JFrame {
         this.TextLimfo.setText(null);
     }
 
+    public void oknoDodaj(){
+
+        JFrame dodajPage = new JFrame("Dodawanie badania");
+        //dodajPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dodajPage.setSize(600,350);
         /*
          * Panel do dodawania nowego Pacjenta lub Badania
          */
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        this.getContentPane().add(mainPanel);
+        dodajPage.add(mainPanel);
 
         /*
          * Panel do dodawania nowego Pacjenta/ lub istniejącego wyniki badań krwi
@@ -148,18 +156,18 @@ public class WidokGui extends JFrame {
         LabelPESEL.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelPESEL);
 
-        this.TextPESEL = new JTextField();
-        this.TextPESEL.setPreferredSize(new Dimension(90,20));
-        this.TextPESEL.setMinimumSize(new Dimension(90,20));
-        this.TextPESEL.setMaximumSize(new Dimension(90,20));
-        subpanel.add(this.TextPESEL);
+        TextPESEL = new JTextField();
+        TextPESEL.setPreferredSize(new Dimension(90,20));
+        TextPESEL.setMinimumSize(new Dimension(90,20));
+        TextPESEL.setMaximumSize(new Dimension(90,20));
+        subpanel.add(TextPESEL);
 
-        this.sprawdzPacjent = new JButton("Sprawdz");
-        this.sprawdzPacjent.setActionCommand("checkPacjent");
-        this.sprawdzPacjent.setPreferredSize(new Dimension(90,20));
-        this.sprawdzPacjent.setMinimumSize(new Dimension(90,20));
-        this.sprawdzPacjent.setMinimumSize(new Dimension(90,20));
-        subpanel.add(this.sprawdzPacjent);
+        sprawdzPacjent = new JButton("Sprawdz");
+        sprawdzPacjent.setActionCommand("checkPacjent");
+        sprawdzPacjent.setPreferredSize(new Dimension(90,20));
+        sprawdzPacjent.setMinimumSize(new Dimension(90,20));
+        sprawdzPacjent.setMinimumSize(new Dimension(90,20));
+        subpanel.add(sprawdzPacjent);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
@@ -174,11 +182,11 @@ public class WidokGui extends JFrame {
         LabelNazwisko.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelNazwisko);
 
-        this.TextNazwisko = new JTextField();
-        this.TextNazwisko.setPreferredSize(new Dimension(180,20));
-        this.TextNazwisko.setMinimumSize(new Dimension(180,20));
-        this.TextNazwisko.setMaximumSize(new Dimension(180,20));
-        subpanel.add(this.TextNazwisko);
+        TextNazwisko = new JTextField();
+        TextNazwisko.setPreferredSize(new Dimension(180,20));
+        TextNazwisko.setMinimumSize(new Dimension(180,20));
+        TextNazwisko.setMaximumSize(new Dimension(180,20));
+        subpanel.add(TextNazwisko);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
@@ -193,11 +201,11 @@ public class WidokGui extends JFrame {
         LabelImie.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelImie);
 
-        this.TextImie = new JTextField();
-        this.TextImie.setPreferredSize(new Dimension(180,20));
-        this.TextImie.setMinimumSize(new Dimension(180,20));
-        this.TextImie.setMaximumSize(new Dimension(180,20));
-        subpanel.add(this.TextImie);
+        TextImie = new JTextField();
+        TextImie.setPreferredSize(new Dimension(180,20));
+        TextImie.setMinimumSize(new Dimension(180,20));
+        TextImie.setMaximumSize(new Dimension(180,20));
+        subpanel.add(TextImie);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
@@ -212,11 +220,11 @@ public class WidokGui extends JFrame {
         LabelPlec.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelPlec);
 
-        this.TextPlec = new JTextField();
-        this.TextPlec.setPreferredSize(new Dimension(180,20));
-        this.TextPlec.setMinimumSize(new Dimension(180,20));
-        this.TextPlec.setMaximumSize(new Dimension(180,20));
-        subpanel.add(this.TextPlec);
+        TextPlec = new JTextField();
+        TextPlec.setPreferredSize(new Dimension(180,20));
+        TextPlec.setMinimumSize(new Dimension(180,20));
+        TextPlec.setMaximumSize(new Dimension(180,20));
+        subpanel.add(TextPlec);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
@@ -231,11 +239,11 @@ public class WidokGui extends JFrame {
         LabelWiek.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelWiek);
 
-        this.TextWiek = new JTextField();
-        this.TextWiek.setPreferredSize(new Dimension(180,20));
-        this.TextWiek.setMinimumSize(new Dimension(180,20));
-        this.TextWiek.setMaximumSize(new Dimension(180,20));
-        subpanel.add(this.TextWiek);
+        TextWiek = new JTextField();
+        TextWiek.setPreferredSize(new Dimension(180,20));
+        TextWiek.setMinimumSize(new Dimension(180,20));
+        TextWiek.setMaximumSize(new Dimension(180,20));
+        subpanel.add(TextWiek);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
@@ -258,11 +266,11 @@ public class WidokGui extends JFrame {
         LabelIDBadania.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelIDBadania);
 
-        this.TextIDBadania = new JTextField();
-        this.TextIDBadania.setPreferredSize(new Dimension(180,20));
-        this.TextIDBadania.setMinimumSize(new Dimension(180,20));
-        this.TextIDBadania.setMaximumSize(new Dimension(180,20));
-        subpanel.add(this.TextIDBadania);
+        TextIDBadania = new JTextField();
+        TextIDBadania.setPreferredSize(new Dimension(180,20));
+        TextIDBadania.setMinimumSize(new Dimension(180,20));
+        TextIDBadania.setMaximumSize(new Dimension(180,20));
+        subpanel.add(TextIDBadania);
 
         //Panel Data
         subpanel = new JPanel();
@@ -275,11 +283,11 @@ public class WidokGui extends JFrame {
         LabelData.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelData);
 
-        this.TextData = new JTextField();
-        this.TextData.setPreferredSize(new Dimension(180,20));
-        this.TextData.setMinimumSize(new Dimension(180,20));
-        this.TextData.setMaximumSize(new Dimension(180,20));
-        subpanel.add(this.TextData);
+        TextData = new JTextField();
+        TextData.setPreferredSize(new Dimension(180,20));
+        TextData.setMinimumSize(new Dimension(180,20));
+        TextData.setMaximumSize(new Dimension(180,20));
+        subpanel.add(TextData);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,50)));
 
@@ -294,11 +302,11 @@ public class WidokGui extends JFrame {
         LabelLeuko.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelLeuko);
 
-        this.TextLeuko = new JTextField();
-        this.TextLeuko.setPreferredSize(new Dimension(50,20));
-        this.TextLeuko.setMinimumSize(new Dimension(50,20));
-        this.TextLeuko.setMaximumSize(new Dimension(50,20));
-        subpanel.add(this.TextLeuko);
+        TextLeuko = new JTextField();
+        TextLeuko.setPreferredSize(new Dimension(50,20));
+        TextLeuko.setMinimumSize(new Dimension(50,20));
+        TextLeuko.setMaximumSize(new Dimension(50,20));
+        subpanel.add(TextLeuko);
 
         JLabel LabelLeukoJed = new JLabel("tys/l");
         LabelLeukoJed.setPreferredSize(new Dimension(50,20));
@@ -317,11 +325,11 @@ public class WidokGui extends JFrame {
         LabelErytro.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelErytro);
 
-        this.TextErytro = new JTextField();
-        this.TextErytro.setPreferredSize(new Dimension(50,20));
-        this.TextErytro.setMinimumSize(new Dimension(50,20));
-        this.TextErytro.setMaximumSize(new Dimension(50,20));
-        subpanel.add(this.TextErytro);
+        TextErytro = new JTextField();
+        TextErytro.setPreferredSize(new Dimension(50,20));
+        TextErytro.setMinimumSize(new Dimension(50,20));
+        TextErytro.setMaximumSize(new Dimension(50,20));
+        subpanel.add(TextErytro);
 
         JLabel LabelErytroJed = new JLabel("tys/l");
         LabelErytroJed.setPreferredSize(new Dimension(50,20));
@@ -340,11 +348,11 @@ public class WidokGui extends JFrame {
         LabelTrombo.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelTrombo);
 
-        this.TextTrombo = new JTextField();
-        this.TextTrombo.setPreferredSize(new Dimension(50,20));
-        this.TextTrombo.setMinimumSize(new Dimension(50,20));
-        this.TextTrombo.setMaximumSize(new Dimension(50,20));
-        subpanel.add(this.TextTrombo);
+        TextTrombo = new JTextField();
+        TextTrombo.setPreferredSize(new Dimension(50,20));
+        TextTrombo.setMinimumSize(new Dimension(50,20));
+        TextTrombo.setMaximumSize(new Dimension(50,20));
+        subpanel.add(TextTrombo);
 
         JLabel LabelTromboJed = new JLabel("tys/l");
         LabelTromboJed.setPreferredSize(new Dimension(50,20));
@@ -363,11 +371,11 @@ public class WidokGui extends JFrame {
         LabelMono.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelMono);
 
-        this.TextMono = new JTextField();
-        this.TextMono.setPreferredSize(new Dimension(50,20));
-        this.TextMono.setMinimumSize(new Dimension(50,20));
-        this.TextMono.setMaximumSize(new Dimension(50,20));
-        subpanel.add(this.TextMono);
+        TextMono = new JTextField();
+        TextMono.setPreferredSize(new Dimension(50,20));
+        TextMono.setMinimumSize(new Dimension(50,20));
+        TextMono.setMaximumSize(new Dimension(50,20));
+        subpanel.add(TextMono);
 
         JLabel LabelMonoJed = new JLabel("tys/l");
         LabelMonoJed.setPreferredSize(new Dimension(50,20));
@@ -386,11 +394,11 @@ public class WidokGui extends JFrame {
         LabelLimfo.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelLimfo);
 
-        this.TextLimfo = new JTextField();
-        this.TextLimfo.setPreferredSize(new Dimension(50,20));
-        this.TextLimfo.setMinimumSize(new Dimension(50,20));
-        this.TextLimfo.setMaximumSize(new Dimension(50,20));
-        subpanel.add(this.TextLimfo);
+        TextLimfo = new JTextField();
+        TextLimfo.setPreferredSize(new Dimension(50,20));
+        TextLimfo.setMinimumSize(new Dimension(50,20));
+        TextLimfo.setMaximumSize(new Dimension(50,20));
+        subpanel.add(TextLimfo);
 
         JLabel LabelLimfoJed = new JLabel("tys/l");
         LabelLimfoJed.setPreferredSize(new Dimension(50,20));
@@ -400,19 +408,85 @@ public class WidokGui extends JFrame {
 
         //Przycisk ,,Zapisz"
         JPanel ButtonZapisz = new JPanel();
-        this.PrzyciskZapisz = new JButton("Zapisz wyniki");
-        this.PrzyciskZapisz.setActionCommand("addRekord");
-        this.PrzyciskZapisz.setBackground(Color.decode("#EA6B66"));
-        ButtonZapisz.add(this.PrzyciskZapisz, BorderLayout.CENTER);
+        PrzyciskZapisz = new JButton("Zapisz wyniki");
+        PrzyciskZapisz.setActionCommand("addRekord");
+        PrzyciskZapisz.setBackground(Color.decode("#EA6B66"));
+        ButtonZapisz.add(PrzyciskZapisz, BorderLayout.CENTER);
         ButtonZapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
         mainPanel.add(ButtonZapisz);
 
-        this.setTitle("Dodawanie informacji");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        dodajPage.add(mainPanel, BorderLayout.CENTER);
+        dodajPage.setVisible(true);
+        dodajPage.setTitle("Dodawanie informacji");
+
+
+
     }
 
-    public void oknoPrzegladaj(){}
+    public void oknoPrzegladaj(){
+
+        JFrame przegladajPage = new JFrame("Przegladarka badan");
+        //przegladajPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        przegladajPage.setSize(400,250);
+        System.out.println("jestem");
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        this.getContentPane().add(mainPanel);
+
+        /*
+         * Panel do sprawdzania wyników danego pacjenta
+         */
+        JPanel przegladajPanel = new JPanel();
+        przegladajPanel.setLayout(new BoxLayout(przegladajPanel, BoxLayout.X_AXIS));
+        mainPanel.add(przegladajPanel);
+
+        /*
+         * Lewy Panel odpowiedzialny za wyswietlanie badań pacjenta
+         */
+        JPanel wynikiPrzegladaj = new JPanel();
+        wynikiPrzegladaj.setLayout(new BoxLayout(wynikiPrzegladaj, BoxLayout.Y_AXIS));
+        przegladajPanel.add(wynikiPrzegladaj);
+
+        //Panel PESEL
+        JPanel sprawdzPESEL = new JPanel();
+        sprawdzPESEL.setLayout(new BoxLayout(sprawdzPESEL, BoxLayout.X_AXIS));
+        sprawdzPESEL.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
+        przegladajPanel.add(sprawdzPESEL);
+
+        JLabel LabelPESEL = new JLabel("PESEL:");
+        LabelPESEL.setPreferredSize(new Dimension(90,25));
+        LabelPESEL.setMinimumSize(new Dimension(90,25));
+        LabelPESEL.setMaximumSize(new Dimension(90,25));
+        sprawdzPESEL.add(LabelPESEL);
+
+        this.TextPESEL = new JTextField();
+        this.TextPESEL.setPreferredSize(new Dimension(90,20));
+        this.TextPESEL.setMinimumSize(new Dimension(90,20));
+        this.TextPESEL.setMaximumSize(new Dimension(90,20));
+        sprawdzPESEL.add(this.TextPESEL);
+
+        this.sprawdzWyniki = new JButton("Szukaj");
+        this.sprawdzWyniki.setActionCommand("sprawdzWyniki");
+        this.sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
+        this.sprawdzWyniki.setMargin(new Insets(5, 10, 5, 10));
+        this.sprawdzWyniki.setPreferredSize(new Dimension(90,20));
+        this.sprawdzWyniki.setMinimumSize(new Dimension(90,20));
+        this.sprawdzWyniki.setMinimumSize(new Dimension(90,20));
+        sprawdzPESEL.add(this.sprawdzWyniki);
+
+        String [] nazwyKolumn = {"Data Badania", "ID", "WBC", "RBC", "PLT", "MONO", "LYM" };
+        Badanie test = new Badanie("1234", "20-20-20", 1,2,3,4,5);
+
+
+        //JTable tabelaWynikow = new JTable(test,nazwyKolumn );
+        //sprawdzPESEL.add(tabelaWynikow, BorderLayout.CENTER);
+
+        //this.setTitle("Przeglądanie badań");
+        przegladajPage.add(mainPanel);
+        przegladajPage.setVisible(true);
+        this.setSize(400,250);
+
+    }
 
     /**
      * Metoda definiujaca wyglad aplikacji
@@ -422,9 +496,9 @@ public class WidokGui extends JFrame {
         /*
          * Panel okna startowego aplikacji
          */
-        JFrame homePage = new JFrame("ZUAL");
-        homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        homePage.setSize(400,250);
+        this.setTitle("ZUAL");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400,250);
         /*
          * Panel tytułowy
          */
@@ -442,35 +516,42 @@ public class WidokGui extends JFrame {
         systemOpis.setFont(new Font("Calibri", Font.PLAIN, 25));
         welcomeMessage.add(systemOpis, BorderLayout.CENTER);
 
-        homePage.add(welcomeMessage,BorderLayout.CENTER);
+        this.add(welcomeMessage,BorderLayout.CENTER);
 
         /*
          * Panel z przyciskami do wyboru funkcji, z której funkcji chce korzystać użytkownik
          */
         JPanel buttons = new JPanel();
 
-        JButton bPrzegladaj = new JButton("Przegladaj");
-        bPrzegladaj.setBackground(Color.decode("#EA6B66"));
-        bPrzegladaj.setActionCommand("przegladajBadania");
-        bPrzegladaj.setMargin(new Insets(5, 10, 5, 10));
-        buttons.add(bPrzegladaj, BorderLayout.CENTER);
+        this.bPrzegladaj = new JButton("Przegladaj");
+        this.bPrzegladaj.setBackground(Color.decode("#EA6B66"));
+        this.bPrzegladaj.setActionCommand("przegladajBadania");
+        this.bPrzegladaj.setMargin(new Insets(5, 10, 5, 10));
+        buttons.add(this.bPrzegladaj, BorderLayout.CENTER);
 
-        JButton bDodaj = new JButton("Dodaj badanie");
-        bDodaj.setBackground(Color.decode("#EA6B66"));
-        bDodaj.setActionCommand("dodajBadanie");
-        bDodaj.setMargin(new Insets(5, 10, 5, 10));
-        buttons.add(bDodaj, BorderLayout.CENTER);
+        this.bDodaj = new JButton("Dodaj badanie");
+        this.bDodaj.setBackground(Color.decode("#EA6B66"));
+        this.bDodaj.setActionCommand("dodajBadanie");
+        this.bDodaj.setMargin(new Insets(5, 10, 5, 10));
+        buttons.add(this.bDodaj, BorderLayout.CENTER);
 
-        homePage.add(buttons, BorderLayout.SOUTH);
-        homePage.setVisible(true);
+        this.add(buttons, BorderLayout.SOUTH);
+        this.setVisible(true);
 
-        //oknoDodaj();
-        oknoPrzegladaj();
+//      oknoDodaj();
+//     oknoPrzegladaj();
     }
+
     public void setController(ZdarzenieGui z) {
-
-        this.PrzyciskZapisz.addActionListener(z);
-        this.sprawdzPacjent.addActionListener(z);
+        if (bDodaj != null && this.bDodaj.getActionListeners().length == 0)
+            this.bDodaj.addActionListener(z);
+        if (bPrzegladaj != null && this.bPrzegladaj.getActionListeners().length == 0)
+            this.bPrzegladaj.addActionListener(z);
+        if (sprawdzWyniki != null)
+            this.sprawdzWyniki.addActionListener(z);
+        if (PrzyciskZapisz != null)
+            this.PrzyciskZapisz.addActionListener(z);
+        if (sprawdzPacjent != null)
+            this.sprawdzPacjent.addActionListener(z);
     }
-
 }

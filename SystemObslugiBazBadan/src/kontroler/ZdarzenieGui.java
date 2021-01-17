@@ -29,7 +29,27 @@ public class ZdarzenieGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("addRekord")) {
+
+        if (e.getActionCommand().equals("przegladajBadania")){
+            this.widok.oknoPrzegladaj();
+            this.widok.setController(this);
+            System.out.println("Wybrano opcję - Przeglądaj");
+        }
+
+        else if (e.getActionCommand().equals("dodajBadanie")){
+            this.widok.oknoDodaj();
+            this.widok.setController(this);
+            System.out.println("Wybrano opcję - Dodaj badanie");
+        }
+
+        else if (e.getActionCommand().equals("sprawdzWyniki")){
+            //this.model.findPacjent(this.widok.getPESEL())
+            System.out.println("Szukam pacjenta...");
+            this.model.findBadanie(this.widok.getPESEL());
+
+        }
+
+        else if (e.getActionCommand().equals("addRekord")) {
 
             Pacjent p = this.widok.getPacjent();
             Badanie b = this.widok.getBadanie();
@@ -46,26 +66,12 @@ public class ZdarzenieGui implements ActionListener {
             System.out.println("Badanie zostało utworzone");
 
         }
+
         else if (e.getActionCommand().equals("checkPacjent")){
-                this.widok.setPacjent(this.model.findPacjent(this.widok.getPESEL()));
-        }
-        else{
-            System.out.println("Mamy problem!");
+            this.widok.setPacjent(this.model.findPacjent(this.widok.getPESEL()));
         }
 
-        if (e.getActionCommand().equals("dodajBadanie")){
-            this.widok.oknoDodaj();
-
-            System.out.println("Wybrano opcję - Dodaj badanie");
-        } else {
-            System.out.println("Mamy problem!");
-        }
-
-        if (e.getActionCommand().equals("przegladajBadania")){
-            this.widok.oknoDodaj();
-
-            System.out.println("Wybrano opcję - Przeglądaj");
-        } else {
+        else {
             System.out.println("Mamy problem!");
         }
 

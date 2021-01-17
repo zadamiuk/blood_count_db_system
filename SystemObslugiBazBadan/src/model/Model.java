@@ -48,8 +48,8 @@ public class Model {
             /*
              * Wykonywanie polecen SQL (tworzenie tabel i dodawanie bazowych informacji)
              */
-            try (Statement stmt = conn.createStatement())
-            {
+            Statement stmt = conn.createStatement();
+
                 if (!tableExists(conn,"Pacjent"))
                 {
                     stmt.execute("CREATE TABLE Pacjent (idPacjent INTEGER NOT NULL PRIMARY KEY " +
@@ -87,12 +87,12 @@ public class Model {
                     System.out.println("Utworzono tabele Badanie");
                 }
 
-            }
-            catch (SQLException e)
+
+            /*catch (SQLException e)
             {
                 System.out.println("Blad przy wykonywaniu polecania\n");
                 e.printStackTrace();
-            }
+            }*/
         }
         catch (SQLException e)
         {
@@ -289,6 +289,74 @@ public class Model {
         }
         return false;
     }
+
+
+    /**
+     * Metoda szukajaca czy istnieją badania dla danego numeru PESEL
+     * @param PESEL atrybut szukający
+     * @return
+     */
+    public List<Badanie> findBadanie(String PESEL){
+
+        List<Badanie> badania = new ArrayList<Badanie>();
+
+        /**
+         * Rejestrowanie streownika bazy danych
+         */
+        try {
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Sterownik bazy danych zostal wczytany\n");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Blad przy wczytywaniu sterownika\n");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        /*
+         * Tworzenie polaczenia z baza danych
+         */
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+
+            System.out.println("Polaczenie z baza danych: " + conn.getMetaData().getURL());
+
+            /*
+             * Wykonywanie polecen SQL - szuka wprowadzonego PESEL
+             */
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Badanie WHERE PESELBADANIE =?")){
+
+                stmt.setString(1, PESEL);
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next() == false) {
+                    System.out.println("Badanie tego pacjenta jeszcze nie istnieje");
+                    return null;
+                } else {
+                    do {
+                        Badanie b = new Badanie(rs.getString("PESELBADANIE"),
+                                rs.getString("dataBadania"), rs.getFloat("Leukocyty"),
+                                rs.getFloat("Erytrocyty"), rs.getFloat("Trombocyty"),
+                                rs.getFloat("Monocyty"), rs.getFloat("Limfocyty"));
+                        badania.add(b);
+                    }
+                    while (rs.next());
+                    for (Badanie b:
+                         badania) {
+                        System.out.println(b.getDataBadania());
+                    }
+                }
+
+            } catch (SQLException e) {
+                System.out.println("Blad przy metodzie findBadanie\n");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Blad przy metodzie findBadanie\n");
+            e.printStackTrace();
+        }
+        return badania;
+    }
+
 
     public Model(){
     }
