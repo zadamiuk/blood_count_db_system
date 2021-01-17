@@ -19,6 +19,7 @@ public class WidokGui extends JFrame {
                                             TextErytro, TextTrombo, TextMono, TextLimfo;
 
     private JButton PrzyciskZapisz = null;
+    private JButton sprawdzPacjent = null;
 
     /**
      * Konstruktor
@@ -29,6 +30,10 @@ public class WidokGui extends JFrame {
         this.model = m;
 
         this.createGui();
+    }
+
+    public String getPESEL(){
+        return this.TextPESEL.getText();
     }
 
     /**
@@ -52,6 +57,25 @@ public class WidokGui extends JFrame {
     }
 
     /**
+     * Metoda ustawiająca pola edycyjne na podstawie Pacjenta
+     * @param p
+     */
+    public void setPacjent(Pacjent p){
+        if (p!=null){
+            this.TextNazwisko.setText(p.getNazwisko());
+            this.TextImie.setText(p.getImie());
+            this.TextPlec.setText(p.getPlec());
+            this.TextWiek.setText(String.valueOf(p.getWiek()));
+        }
+        else {
+            this.TextNazwisko.setText("");
+            this.TextImie.setText("");
+            this.TextPlec.setText("");
+            this.TextWiek.setText("");
+        }
+    }
+
+    /**
      * Metoda tworzaca badanie na podstawie pol edycyjnych
      */
     public Badanie getBadanie(){
@@ -62,7 +86,7 @@ public class WidokGui extends JFrame {
         float leukocyty = Float.parseFloat(this.TextLeuko.getText());
         float erytrocyty = Float.parseFloat(this.TextErytro.getText());
         float trombocyty = Float.parseFloat(this.TextTrombo.getText());
-        float monocyty = Float.parseFloat(this.TextTrombo.getText());
+        float monocyty = Float.parseFloat(this.TextMono.getText());
         float limfocyty = Float.parseFloat(this.TextLimfo.getText());
 
         if (!dataBadania.isBlank()){
@@ -73,6 +97,22 @@ public class WidokGui extends JFrame {
     }
 
     public void oknoDodaj(){
+    /**
+     * Metoda odpowiedzialna za oczyszczanie pól tekstowych
+     */
+    public void clearGui(){
+        this.TextPESEL.setText(null);
+        this.TextNazwisko.setText(null);
+        this.TextImie.setText(null);
+        this.TextPlec.setText(null);
+        this.TextWiek.setText(null);
+        this.TextData.setText(null);
+        this.TextLeuko.setText(null);
+        this.TextErytro.setText(null);
+        this.TextTrombo.setText(null);
+        this.TextMono.setText(null);
+        this.TextLimfo.setText(null);
+    }
 
         /*
          * Panel do dodawania nowego Pacjenta lub Badania
@@ -109,10 +149,17 @@ public class WidokGui extends JFrame {
         subpanel.add(LabelPESEL);
 
         this.TextPESEL = new JTextField();
-        this.TextPESEL.setPreferredSize(new Dimension(180,20));
-        this.TextPESEL.setMinimumSize(new Dimension(180,20));
-        this.TextPESEL.setMaximumSize(new Dimension(180,20));
+        this.TextPESEL.setPreferredSize(new Dimension(90,20));
+        this.TextPESEL.setMinimumSize(new Dimension(90,20));
+        this.TextPESEL.setMaximumSize(new Dimension(90,20));
         subpanel.add(this.TextPESEL);
+
+        this.sprawdzPacjent = new JButton("Sprawdz");
+        this.sprawdzPacjent.setActionCommand("checkPacjent");
+        this.sprawdzPacjent.setPreferredSize(new Dimension(90,20));
+        this.sprawdzPacjent.setMinimumSize(new Dimension(90,20));
+        this.sprawdzPacjent.setMinimumSize(new Dimension(90,20));
+        subpanel.add(this.sprawdzPacjent);
 
         subpanel.add(Box.createRigidArea(new Dimension(0,40)));
 
@@ -421,7 +468,9 @@ public class WidokGui extends JFrame {
         oknoPrzegladaj();
     }
     public void setController(ZdarzenieGui z) {
+
         this.PrzyciskZapisz.addActionListener(z);
+        this.sprawdzPacjent.addActionListener(z);
     }
 
 }

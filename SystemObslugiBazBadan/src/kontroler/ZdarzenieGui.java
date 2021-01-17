@@ -7,19 +7,14 @@ import widok.WidokGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
+/**
+ * Klasa reprezentująca zdarzenia występujące w aplikacji
+ */
 public class ZdarzenieGui implements ActionListener {
 
     private WidokGui widok = null;
     private Model model = null;
-
-    public static final String DB_URL="jdbc:derby:MojaBazaDanych;create=true";
-    public static final String DB_USER="";
-    public static final String DB_PASSWORD="";
 
     /**
      * Konstruktor
@@ -39,11 +34,20 @@ public class ZdarzenieGui implements ActionListener {
             Pacjent p = this.widok.getPacjent();
             Badanie b = this.widok.getBadanie();
 
-            this.model.add(p,b);
+            if(!model.checkPacjent(p.getPesel())){
+                this.model.addPacjent(p);
+                this.model.addBadanie(b);
+            } else {
+                this.model.addBadanie(b);
+            }
+            this.widok.clearGui();
 
             System.out.println("Pacjent został utworzony");
             System.out.println("Badanie zostało utworzone");
 
+        }
+        else if (e.getActionCommand().equals("checkPacjent")){
+                this.widok.setPacjent(this.model.findPacjent(this.widok.getPESEL()));
         }
         else{
             System.out.println("Mamy problem!");
@@ -66,4 +70,5 @@ public class ZdarzenieGui implements ActionListener {
         }
 
     }
+
 }
