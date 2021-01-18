@@ -6,7 +6,11 @@ import model.Pacjent;
 import model.Model;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Klasa odpowiedzialana za widok aplikacji
@@ -15,16 +19,20 @@ public class WidokGui extends JFrame{
 
     private Model model = null;
 
+    private JButton bDodaj;
+    private JButton bPrzegladaj;
+
     private JTextField TextPESEL, TextNazwisko, TextImie, TextPlec, TextWiek, TextIDBadania, TextData, TextLeuko,
                                             TextErytro, TextTrombo, TextMono, TextLimfo;
-
     private JButton PrzyciskZapisz;
     private JButton sprawdzPacjent;
 
     private JButton sprawdzWyniki;
+    private JTextField TextSprawdzPESEL;
+    private ArrayList<Badanie> wyniki;
+    private ArrayList<Badanie> wynikiLista;
 
-    private JButton bDodaj;
-    private JButton bPrzegladaj;
+    public JFrame przegladajPage;
 
     /**
      * Konstruktor
@@ -39,6 +47,10 @@ public class WidokGui extends JFrame{
 
     public String getPESEL(){
         return this.TextPESEL.getText();
+    }
+
+    public String getSprawdzPESEL(){
+        return this.TextSprawdzPESEL.getText();
     }
 
     /**
@@ -100,6 +112,13 @@ public class WidokGui extends JFrame{
 
         return (b);
     }
+
+    public void setWyniki (ArrayList<Badanie> znalezioneWyniki){
+        if (znalezioneWyniki != null)
+            this.wyniki = znalezioneWyniki;
+        else this.wyniki.add(new Badanie("Brak danych", "00-00-00", 0,0,0,0,0));
+    }
+
     /**
      * Metoda odpowiedzialna za oczyszczanie pól tekstowych
      */
@@ -425,10 +444,8 @@ public class WidokGui extends JFrame{
 
     public void oknoPrzegladaj(){
 
-        JFrame przegladajPage = new JFrame("Przegladarka badan");
-        //przegladajPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        przegladajPage = new JFrame("Przegladarka badan");
         przegladajPage.setSize(400,250);
-        System.out.println("jestem");
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         this.getContentPane().add(mainPanel);
@@ -440,48 +457,70 @@ public class WidokGui extends JFrame{
         przegladajPanel.setLayout(new BoxLayout(przegladajPanel, BoxLayout.X_AXIS));
         mainPanel.add(przegladajPanel);
 
-        /*
-         * Lewy Panel odpowiedzialny za wyswietlanie badań pacjenta
-         */
-        JPanel wynikiPrzegladaj = new JPanel();
-        wynikiPrzegladaj.setLayout(new BoxLayout(wynikiPrzegladaj, BoxLayout.Y_AXIS));
-        przegladajPanel.add(wynikiPrzegladaj);
-
         //Panel PESEL
         JPanel sprawdzPESEL = new JPanel();
+        sprawdzPESEL.setSize(400, 100);
         sprawdzPESEL.setLayout(new BoxLayout(sprawdzPESEL, BoxLayout.X_AXIS));
         sprawdzPESEL.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
-        przegladajPanel.add(sprawdzPESEL);
 
         JLabel LabelPESEL = new JLabel("PESEL:");
         LabelPESEL.setPreferredSize(new Dimension(90,25));
-        LabelPESEL.setMinimumSize(new Dimension(90,25));
-        LabelPESEL.setMaximumSize(new Dimension(90,25));
+        //LabelPESEL.setMinimumSize(new Dimension(90,25));
+        //LabelPESEL.setMaximumSize(new Dimension(90,25));
         sprawdzPESEL.add(LabelPESEL);
 
-        this.TextPESEL = new JTextField();
-        this.TextPESEL.setPreferredSize(new Dimension(90,20));
-        this.TextPESEL.setMinimumSize(new Dimension(90,20));
-        this.TextPESEL.setMaximumSize(new Dimension(90,20));
-        sprawdzPESEL.add(this.TextPESEL);
+        TextSprawdzPESEL = new JTextField();
+        TextSprawdzPESEL.setPreferredSize(new Dimension(90,20));
+        TextSprawdzPESEL.setMinimumSize(new Dimension(90,20));
+        TextSprawdzPESEL.setMaximumSize(new Dimension(90,20));
+        sprawdzPESEL.add(TextSprawdzPESEL);
 
-        this.sprawdzWyniki = new JButton("Szukaj");
-        this.sprawdzWyniki.setActionCommand("sprawdzWyniki");
-        this.sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
-        this.sprawdzWyniki.setMargin(new Insets(5, 10, 5, 10));
-        this.sprawdzWyniki.setPreferredSize(new Dimension(90,20));
-        this.sprawdzWyniki.setMinimumSize(new Dimension(90,20));
-        this.sprawdzWyniki.setMinimumSize(new Dimension(90,20));
-        sprawdzPESEL.add(this.sprawdzWyniki);
+        sprawdzWyniki = new JButton("Szukaj");
+        sprawdzWyniki.setActionCommand("sprawdzWyniki");
+        sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
+        sprawdzWyniki.setMargin(new Insets(5, 10, 5, 10));
+        sprawdzWyniki.setPreferredSize(new Dimension(90,20));
+        sprawdzWyniki.setMinimumSize(new Dimension(90,20));
+        sprawdzPESEL.add(sprawdzWyniki);
+        mainPanel.add(sprawdzPESEL);
 
-        String [] nazwyKolumn = {"Data Badania", "ID", "WBC", "RBC", "PLT", "MONO", "LYM" };
-        Badanie test = new Badanie("1234", "20-20-20", 1,2,3,4,5);
+        if (wyniki != null) {
+            JList listaWynikow = new JList(this.wyniki.toArray());
+            listaWynikow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            listaWynikow.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+            JScrollPane listScroller = new JScrollPane(listaWynikow);
+            listScroller.setPreferredSize(new Dimension(250, 80));
+            JLabel label = new JLabel("Podgląd wybranego badania");
+            JTextArea podgladWynikow = new JTextArea("");
 
+            listaWynikow.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent arg0) {
+                    if (!arg0.getValueIsAdjusting()) {
+                        podgladWynikow.setText("Model badania: " + listaWynikow.getSelectedValue().toString());
+                        for (int i = 0; i < wyniki.size(); i++) {
+                            if (wyniki.get(i) == listaWynikow.getSelectedValue())
+                                podgladWynikow.setText( "Dane pacjenta \nPESEL: " + wyniki.get(i).getPesel() +
+                                                        "\nNazwisko: " + model.findPacjent(wyniki.get(i).getPesel()).getNazwisko() +
+                                                        "\nImie: " + model.findPacjent(wyniki.get(i).getPesel()).getImie() +
+                                                        "\nPlec: " + model.findPacjent(wyniki.get(i).getPesel()).getPlec() +
+                                                        "\nWiek: " + model.findPacjent(wyniki.get(i).getPesel()).getWiek() +
+                                                        "\n\nData badania: " + wyniki.get(i).getDataBadania() +
+                                                        "\nLeukocyty: " + wyniki.get(i).getLeukocyty() + "tys/µl   (norma 3,8-10 tys/µl)" +
+                                                        "\nErytrocyty: " + wyniki.get(i).getErytrocyty() + "mln/µl   (norma 3,8 - 5,8 mln/µl)" +
+                                                        "\nTrombocyty: " + wyniki.get(i).getTrombocyty() + "tys/µl   (norma 140-440 tys/µl)" +
+                                                        "\nMonoocyty: " + wyniki.get(i).getMonocyty() + "tys/µl   (norma 0,2-1 tys/µl)" +
+                                                        "\nLimfocyty: " + wyniki.get(i).getLimfocyty() + "tys/µl   (norma 1-3,5 tys/µl)");
+                        }
+                    }
+                }
+            });
 
-        //JTable tabelaWynikow = new JTable(test,nazwyKolumn );
-        //sprawdzPESEL.add(tabelaWynikow, BorderLayout.CENTER);
+            mainPanel.add(podgladWynikow,BorderLayout.EAST);
+            mainPanel.add(label,BorderLayout.SOUTH);
+            mainPanel.add(listaWynikow, BorderLayout.CENTER);
+        }
 
-        //this.setTitle("Przeglądanie badań");
         przegladajPage.add(mainPanel);
         przegladajPage.setVisible(true);
         this.setSize(400,250);
@@ -538,8 +577,6 @@ public class WidokGui extends JFrame{
         this.add(buttons, BorderLayout.SOUTH);
         this.setVisible(true);
 
-//      oknoDodaj();
-//     oknoPrzegladaj();
     }
 
     public void setController(ZdarzenieGui z) {
@@ -554,4 +591,5 @@ public class WidokGui extends JFrame{
         if (sprawdzPacjent != null)
             this.sprawdzPacjent.addActionListener(z);
     }
+
 }

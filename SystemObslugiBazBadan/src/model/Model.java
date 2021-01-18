@@ -296,9 +296,9 @@ public class Model {
      * @param PESEL atrybut szukający
      * @return
      */
-    public List<Badanie> findBadanie(String PESEL){
+    public ArrayList<Badanie> findBadanie(String PESEL){
 
-        List<Badanie> badania = new ArrayList<Badanie>();
+        ArrayList<Badanie> badania = new ArrayList<Badanie>();
 
         /**
          * Rejestrowanie streownika bazy danych
