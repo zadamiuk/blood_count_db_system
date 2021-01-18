@@ -302,7 +302,7 @@ public class WidokGui extends JFrame{
         LabelData.setMaximumSize(new Dimension(90,25));
         subpanel.add(LabelData);
 
-        TextData = new JTextField();
+        TextData = new JTextField("__-__-____");
         TextData.setPreferredSize(new Dimension(180,20));
         TextData.setMinimumSize(new Dimension(180,20));
         TextData.setMaximumSize(new Dimension(180,20));
@@ -497,7 +497,6 @@ public class WidokGui extends JFrame{
                 @Override
                 public void valueChanged(ListSelectionEvent arg0) {
                     if (!arg0.getValueIsAdjusting()) {
-                        podgladWynikow.setText("Model badania: " + listaWynikow.getSelectedValue().toString());
                         for (int i = 0; i < wyniki.size(); i++) {
                             if (wyniki.get(i) == listaWynikow.getSelectedValue())
                                 podgladWynikow.setText( "Dane pacjenta \nPESEL: " + wyniki.get(i).getPesel() +
@@ -517,7 +516,7 @@ public class WidokGui extends JFrame{
             });
 
             mainPanel.add(podgladWynikow,BorderLayout.EAST);
-            mainPanel.add(label,BorderLayout.SOUTH);
+            mainPanel.add(label,BorderLayout.NORTH);
             mainPanel.add(listaWynikow, BorderLayout.CENTER);
         }
 
