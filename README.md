@@ -6,9 +6,13 @@ czerwonych, OB, CRP i glukoza). Dla wybranego pacjenta program musi udostępniac
 wykonanych badan, natomiast dla wybranego badania – generowac czytelny raport zawierający wyniki
 wszystkich oznaczonych parametrów.
 
-link do WORD: 
+link do WORD dokumentacja wstępna: 
 
 https://wutwaw-my.sharepoint.com/:w:/g/personal/01130406_pw_edu_pl/EXAF1Ek86gBFmP8xtmSWJBkB3mWoTTLnT8rKPH3HX5QnYw?e=I1tHvH
+
+link do WORD oddanie:
+
+https://wutwaw-my.sharepoint.com/:w:/g/personal/01130406_pw_edu_pl/EeBP6z8nMr1LmqC3DtzLuBIBP6JCvJyzo6ZPhvBDvB7cCQ?e=CaYBoe
 
 link do Diagramów:
 
