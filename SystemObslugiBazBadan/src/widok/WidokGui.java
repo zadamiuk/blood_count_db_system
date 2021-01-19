@@ -8,14 +8,29 @@ import model.Model;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.Document;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import java.awt.print.Pageable;
+
+import java.io.FileWriter;
+import java.io.File;
+
 
 /**
  * Klasa odpowiedzialana za widok aplikacji
  */
-public class WidokGui extends JFrame{
+public class WidokGui extends JFrame {
 
     private Model model = null;
 
@@ -33,6 +48,7 @@ public class WidokGui extends JFrame{
     private ArrayList<Badanie> wynikiLista;
 
     public JFrame przegladajFrame;
+    public JTextArea podgladWynikow;
 
     /**
      * Konstruktor
@@ -135,6 +151,26 @@ public class WidokGui extends JFrame{
         this.TextMono.setText(null);
         this.TextLimfo.setText(null);
     }
+
+    /**
+     * Metoda zapisująca raport z badania do pliku PDF
+     * @param poleTekstowe
+     */
+    public void zapiszPDF(JTextArea poleTekstowe)  {
+        String text = poleTekstowe.getText();
+
+        FileWriter file = null;
+        try {
+            file = new FileWriter("Raport-z-badania.txt");
+            BufferedWriter raport = new BufferedWriter(file);
+            raport.append(text);
+            raport.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void oknoDodaj(){
 
@@ -529,7 +565,7 @@ public class WidokGui extends JFrame{
             subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
             prawyPrzegladaj.add(subpanel);
 
-            JTextArea podgladWynikow = new JTextArea("");
+            podgladWynikow = new JTextArea("");
             podgladWynikow.setMargin(new Insets(20,20,20,20) );
             subpanel.setSize(250,150);
             subpanel.add(podgladWynikow);

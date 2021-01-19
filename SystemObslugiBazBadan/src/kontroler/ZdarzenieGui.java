@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 /**
  * Klasa reprezentująca zdarzenia występujące w aplikacji
@@ -54,6 +55,9 @@ public class ZdarzenieGui implements ActionListener {
 
         else if (e.getActionCommand().equals("generujPDF")){
             System.out.println("Generuje PDF");
+            this.widok.zapiszPDF(this.widok.podgladWynikow);
+
+
         }
 
         else if (e.getActionCommand().equals("addRekord")) {
