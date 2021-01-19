@@ -19,9 +19,8 @@ public class Main {
 
                 //model
                 Model m = new Model();
-                // tylko raz można wywołać
-                // TODO: zmienić, żeby nie trzeba było komentować/odkomentować
-                //m.ConnCreateInsert();
+
+                m.ConnCreateInsert();
 
                 //widok
                 WidokGui w = new WidokGui(m);

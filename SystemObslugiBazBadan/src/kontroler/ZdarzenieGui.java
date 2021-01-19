@@ -29,7 +29,10 @@ public class ZdarzenieGui implements ActionListener {
         this.model = m;
     }
 
-
+    /**
+     * metoda odpowiedzialna za wystepowanie zdarzeń
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -56,8 +59,6 @@ public class ZdarzenieGui implements ActionListener {
         else if (e.getActionCommand().equals("generujPDF")){
             System.out.println("Generuje PDF");
             this.widok.zapiszPDF(this.widok.podgladWynikow);
-
-
         }
 
         else if (e.getActionCommand().equals("addRekord")) {
@@ -68,13 +69,13 @@ public class ZdarzenieGui implements ActionListener {
             if(!model.checkPacjent(p.getPesel())){
                 this.model.addPacjent(p);
                 this.model.addBadanie(b);
+                System.out.println("Pacjent został utworzony");
             } else {
                 this.model.addBadanie(b);
             }
-            this.widok.clearGui();
-
-            System.out.println("Pacjent został utworzony");
             System.out.println("Badanie zostało utworzone");
+            JOptionPane.showMessageDialog(null, "Dodano!");
+            this.widok.clearGui();
 
         }
 
@@ -85,7 +86,5 @@ public class ZdarzenieGui implements ActionListener {
         else {
             System.out.println("Mamy problem!");
         }
-
     }
-
 }

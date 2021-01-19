@@ -1,17 +1,17 @@
 package model;
 
 /**
- *  Klasa reprezentujaca pacjenta
+ *  Klasa reprezentujaca Pacjenta
  */
 public class Pacjent {
     private int id;
-    private String pesel;
+    private int pesel;
     private String nazwisko;
     private String imie;
     private String plec;
     private int wiek;
 
-    public Pacjent(String PESEL, String nazwisko, String imie, String plec, int wiek){
+    public Pacjent(int PESEL, String nazwisko, String imie, String plec, int wiek){
         this.pesel = PESEL;
         this.nazwisko = nazwisko;
         this.imie = imie;
@@ -27,11 +27,11 @@ public class Pacjent {
         this.id = id;
     }
 
-    public String getPesel() {
+    public int getPesel() {
         return pesel;
     }
 
-    public void setPesel(String pesel) {
+    public void setPesel(int pesel) {
         this.pesel = pesel;
     }
 
