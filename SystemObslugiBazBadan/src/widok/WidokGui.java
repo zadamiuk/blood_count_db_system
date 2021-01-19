@@ -33,9 +33,9 @@ public class WidokGui extends JFrame {
     private JButton bDodaj;
     private JButton bPrzegladaj;
 
-    private JTextField TextPESEL, TextNazwisko, TextImie, TextPlec, TextWiek, TextIDBadania, TextData, TextLeuko,
+    private JTextField TextPESEL, TextNazwisko, TextImie, TextPlec, TextWiek, TextData, TextLeuko,
                                             TextErytro, TextTrombo, TextMono, TextLimfo;
-    private JButton PrzyciskZapisz;
+    private JButton przyciskZapisz;
     private JButton sprawdzPacjent;
 
     private JButton sprawdzWyniki;
@@ -58,8 +58,14 @@ public class WidokGui extends JFrame {
     }
 
     public int getPESEL(){
-        return Integer.parseInt(this.TextPESEL.getText());
+        try{
+            return Integer.parseInt(this.TextPESEL.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Błednie wpisany PESEL");
+        }
+        return -1;
     }
+
 
     public String getSprawdzPESEL(){
         return this.TextSprawdzPESEL.getText();
@@ -448,10 +454,10 @@ public class WidokGui extends JFrame {
 
         //Przycisk ,,Zapisz"
         JPanel ButtonZapisz = new JPanel();
-        PrzyciskZapisz = new JButton("Zapisz wyniki");
-        PrzyciskZapisz.setActionCommand("addRekord");
-        PrzyciskZapisz.setBackground(Color.decode("#EA6B66"));
-        ButtonZapisz.add(PrzyciskZapisz, BorderLayout.CENTER);
+        przyciskZapisz = new JButton("Zapisz wyniki");
+        przyciskZapisz.setActionCommand("addRekord");
+        przyciskZapisz.setBackground(Color.decode("#EA6B66"));
+        ButtonZapisz.add(przyciskZapisz, BorderLayout.CENTER);
         ButtonZapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
         mainPanel.add(ButtonZapisz);
 
@@ -656,8 +662,8 @@ public class WidokGui extends JFrame {
             this.bPrzegladaj.addActionListener(z);
         if (sprawdzWyniki != null)
             this.sprawdzWyniki.addActionListener(z);
-        if (PrzyciskZapisz != null)
-            this.PrzyciskZapisz.addActionListener(z);
+        if (przyciskZapisz != null)
+            this.przyciskZapisz.addActionListener(z);
         if (sprawdzPacjent != null)
             this.sprawdzPacjent.addActionListener(z);
     }
