@@ -47,8 +47,13 @@ public class ZdarzenieGui implements ActionListener {
         else if (e.getActionCommand().equals("sprawdzWyniki")){
             System.out.println("Szukam pacjenta...");
             this.widok.setWyniki(this.model.findBadanie(this.widok.getSprawdzPESEL()));
-            this.widok.przegladajPage.dispatchEvent(new WindowEvent(this.widok.przegladajPage, WindowEvent.WINDOW_CLOSING));
+            this.widok.przegladajFrame.dispatchEvent(new WindowEvent(this.widok.przegladajFrame, WindowEvent.WINDOW_CLOSING));
             this.widok.oknoPrzegladaj();
+            this.widok.setController(this);
+        }
+
+        else if (e.getActionCommand().equals("generujPDF")){
+            System.out.println("Generuje PDF");
         }
 
         else if (e.getActionCommand().equals("addRekord")) {

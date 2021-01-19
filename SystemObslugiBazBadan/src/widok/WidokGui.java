@@ -32,7 +32,7 @@ public class WidokGui extends JFrame{
     private ArrayList<Badanie> wyniki;
     private ArrayList<Badanie> wynikiLista;
 
-    public JFrame przegladajPage;
+    public JFrame przegladajFrame;
 
     /**
      * Konstruktor
@@ -138,16 +138,16 @@ public class WidokGui extends JFrame{
 
     public void oknoDodaj(){
 
-        JFrame dodajPage = new JFrame("Dodawanie badania");
-        //dodajPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        dodajPage.setSize(600,350);
         /*
-         * Panel do dodawania nowego Pacjenta lub Badania
+         * Okno do dodawania nowego Pacjenta lub Badania
          */
+
+        JFrame dodajFrame = new JFrame("Dodawanie badania");
+        dodajFrame.setSize(600,350);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        dodajPage.add(mainPanel);
+        dodajFrame.add(mainPanel);
 
         /*
          * Panel do dodawania nowego Pacjenta/ lub istniejącego wyniki badań krwi
@@ -434,71 +434,124 @@ public class WidokGui extends JFrame{
         ButtonZapisz.setBorder(BorderFactory.createTitledBorder("Zapisz wyniki"));
         mainPanel.add(ButtonZapisz);
 
-        dodajPage.add(mainPanel, BorderLayout.CENTER);
-        dodajPage.setVisible(true);
-        dodajPage.setTitle("Dodawanie informacji");
+        dodajFrame.add(mainPanel, BorderLayout.CENTER);
+        dodajFrame.setVisible(true);
+        dodajFrame.setTitle("Dodawanie informacji");
 
 
 
     }
 
     public void oknoPrzegladaj(){
-
-        przegladajPage = new JFrame("Przegladarka badan");
-        przegladajPage.setSize(400,250);
+        /*
+         * Okno do przeglądania badań pacjenta, którego PESEL zostanie wprowadzony
+         */
+        przegladajFrame = new JFrame("Przegladarka badan");
+        przegladajFrame.setSize(600,450);
+        
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        this.getContentPane().add(mainPanel);
-
-        /*
-         * Panel do sprawdzania wyników danego pacjenta
-         */
-        JPanel przegladajPanel = new JPanel();
-        przegladajPanel.setLayout(new BoxLayout(przegladajPanel, BoxLayout.X_AXIS));
-        mainPanel.add(przegladajPanel);
+        przegladajFrame.add(mainPanel);
 
         //Panel PESEL
-        JPanel sprawdzPESEL = new JPanel();
-        sprawdzPESEL.setSize(400, 100);
-        sprawdzPESEL.setLayout(new BoxLayout(sprawdzPESEL, BoxLayout.X_AXIS));
-        sprawdzPESEL.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
+        JPanel peselPanel= new JPanel();
+        peselPanel.setLayout(new BoxLayout(peselPanel, BoxLayout.X_AXIS));
+        mainPanel.add(peselPanel);
 
         JLabel LabelPESEL = new JLabel("PESEL:");
         LabelPESEL.setPreferredSize(new Dimension(90,25));
-        //LabelPESEL.setMinimumSize(new Dimension(90,25));
-        //LabelPESEL.setMaximumSize(new Dimension(90,25));
-        sprawdzPESEL.add(LabelPESEL);
+        LabelPESEL.setMinimumSize(new Dimension(90,25));
+        LabelPESEL.setMaximumSize(new Dimension(90,25));
+        peselPanel.add(LabelPESEL);
 
         TextSprawdzPESEL = new JTextField();
         TextSprawdzPESEL.setPreferredSize(new Dimension(90,20));
         TextSprawdzPESEL.setMinimumSize(new Dimension(90,20));
         TextSprawdzPESEL.setMaximumSize(new Dimension(90,20));
-        sprawdzPESEL.add(TextSprawdzPESEL);
+        peselPanel.add(TextSprawdzPESEL);
 
         sprawdzWyniki = new JButton("Szukaj");
         sprawdzWyniki.setActionCommand("sprawdzWyniki");
         sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
-        sprawdzWyniki.setMargin(new Insets(5, 10, 5, 10));
-        sprawdzWyniki.setPreferredSize(new Dimension(90,20));
-        sprawdzWyniki.setMinimumSize(new Dimension(90,20));
-        sprawdzPESEL.add(sprawdzWyniki);
-        mainPanel.add(sprawdzPESEL);
+        sprawdzWyniki.setMargin(new Insets(0, 10, 0, 10));
+        sprawdzWyniki.setPreferredSize(new Dimension(40,20));
+        sprawdzWyniki.setMinimumSize(new Dimension(40,20));
+        peselPanel.add(sprawdzWyniki);
+
+        peselPanel.add(Box.createRigidArea(new Dimension(0,40)));
 
         if (wyniki != null) {
-            JList listaWynikow = new JList(this.wyniki.toArray());
+            /*
+             * Panel do sprawdzania wyników danego pacjenta
+             */
+            JPanel przegladajPanel = new JPanel();
+            przegladajPanel.setLayout(new BoxLayout(przegladajPanel, BoxLayout.X_AXIS));
+            mainPanel.add(przegladajPanel);
+
+            /*
+             * Lewy panel służacy do wprowadzania nr PESEL i wyboru badania (lewa strona)
+             */
+            JPanel lewyPrzegladaj = new JPanel();
+            //lewyPrzegladaj.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
+            lewyPrzegladaj.setBorder(BorderFactory.createTitledBorder("Wyszukane badania"));
+            lewyPrzegladaj.setLayout(new BoxLayout(lewyPrzegladaj, BoxLayout.Y_AXIS));
+            przegladajPanel.add(lewyPrzegladaj);
+
+
+            JPanel subpanel = new JPanel();
+            subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
+            lewyPrzegladaj.add(subpanel);
+
+            /*
+             * Prawy Panel odpowiedzialny za podgląd wybranego badania
+             */
+            JPanel prawyPrzegladaj = new JPanel();
+            prawyPrzegladaj.setBorder(BorderFactory.createTitledBorder("Podgląd badania"));
+            prawyPrzegladaj.setLayout(new BoxLayout(prawyPrzegladaj, BoxLayout.Y_AXIS));
+            //prawyPrzegladaj.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
+            przegladajPanel.add(prawyPrzegladaj);
+
+            String [] daty = new String [wyniki.size()];
+            for (int i = 0; i < wyniki.size(); i++){
+                daty[i] = wyniki.get(i).getDataBadania();
+            }
+
+            JList listaWynikow = new JList(daty);
             listaWynikow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             listaWynikow.setLayoutOrientation(JList.HORIZONTAL_WRAP);
             JScrollPane listScroller = new JScrollPane(listaWynikow);
-            listScroller.setPreferredSize(new Dimension(250, 80));
-            JLabel label = new JLabel("Podgląd wybranego badania");
+            listScroller.setPreferredSize(new Dimension(200, 400));
+            subpanel.add(listScroller, BorderLayout.NORTH);
+
+            subpanel.add(Box.createRigidArea(new Dimension(10,0)));
+
+            subpanel = new JPanel();
+            subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
+            prawyPrzegladaj.add(subpanel);
+
             JTextArea podgladWynikow = new JTextArea("");
+            podgladWynikow.setMargin(new Insets(20,20,20,20) );
+            subpanel.setSize(250,150);
+            subpanel.add(podgladWynikow);
+
+            subpanel = new JPanel();
+            subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
+            prawyPrzegladaj.add(subpanel);
+
+            sprawdzWyniki = new JButton("Wygeneruj raport PDF");
+            sprawdzWyniki.setActionCommand("generujPDF");
+            sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
+            sprawdzWyniki.setMargin(new Insets(0, 10, 0, 10));
+            sprawdzWyniki.setPreferredSize(new Dimension(100,20));
+            sprawdzWyniki.setMinimumSize(new Dimension(100,20));
+            subpanel.add(sprawdzWyniki);
 
             listaWynikow.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent arg0) {
                     if (!arg0.getValueIsAdjusting()) {
                         for (int i = 0; i < wyniki.size(); i++) {
-                            if (wyniki.get(i) == listaWynikow.getSelectedValue())
+                            if (wyniki.get(i).getDataBadania() == listaWynikow.getSelectedValue())
                                 podgladWynikow.setText( "Dane pacjenta \nPESEL: " + wyniki.get(i).getPesel() +
                                                         "\nNazwisko: " + model.findPacjent(wyniki.get(i).getPesel()).getNazwisko() +
                                                         "\nImie: " + model.findPacjent(wyniki.get(i).getPesel()).getImie() +
@@ -514,15 +567,11 @@ public class WidokGui extends JFrame{
                     }
                 }
             });
-
-            mainPanel.add(podgladWynikow,BorderLayout.EAST);
-            mainPanel.add(label,BorderLayout.NORTH);
-            mainPanel.add(listaWynikow, BorderLayout.CENTER);
         }
 
-        przegladajPage.add(mainPanel);
-        przegladajPage.setVisible(true);
-        this.setSize(400,250);
+        przegladajFrame.add(mainPanel);
+        przegladajFrame.setVisible(true);
+        //this.setSize(400,250);
 
     }
 
