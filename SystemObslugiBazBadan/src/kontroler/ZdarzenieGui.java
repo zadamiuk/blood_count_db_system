@@ -29,6 +29,7 @@ public class ZdarzenieGui implements ActionListener {
         this.model = m;
     }
 
+
     /**
      * metoda odpowiedzialna za wystepowanie zdarzeń
      * @param e

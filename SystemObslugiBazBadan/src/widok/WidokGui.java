@@ -39,6 +39,7 @@ public class WidokGui extends JFrame {
     private JButton sprawdzPacjent;
 
     private JButton sprawdzWyniki;
+    private JButton zapiszTXT;
     private JTextField TextSprawdzPESEL;
     private ArrayList<Badanie> wyniki;
     private ArrayList<Badanie> wynikiLista;
@@ -581,13 +582,13 @@ public class WidokGui extends JFrame {
             subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
             prawyPrzegladaj.add(subpanel);
 
-            sprawdzWyniki = new JButton("Wygeneruj raport TXT");
-            sprawdzWyniki.setActionCommand("generujTXT");
-            sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
-            sprawdzWyniki.setMargin(new Insets(0, 10, 0, 10));
-            sprawdzWyniki.setPreferredSize(new Dimension(100,20));
-            sprawdzWyniki.setMinimumSize(new Dimension(100,20));
-            subpanel.add(sprawdzWyniki);
+            zapiszTXT = new JButton("Wygeneruj raport TXT");
+            zapiszTXT.setActionCommand("generujTXT");
+            zapiszTXT.setBackground(Color.decode("#EA6B66"));
+            zapiszTXT.setMargin(new Insets(0, 10, 0, 10));
+            zapiszTXT.setPreferredSize(new Dimension(100,20));
+            zapiszTXT.setMinimumSize(new Dimension(100,20));
+            subpanel.add(zapiszTXT);
 
             listaWynikow.addListSelectionListener(new ListSelectionListener() {
                 @Override
@@ -677,6 +678,9 @@ public class WidokGui extends JFrame {
             this.sprawdzWyniki.addActionListener(z);
         if (przyciskZapisz != null)
             this.przyciskZapisz.addActionListener(z);
+        if (zapiszTXT != null){
+            this.zapiszTXT.addActionListener(z);
+        }
         if (sprawdzPacjent != null)
             this.sprawdzPacjent.addActionListener(z);
     }
