@@ -56,8 +56,6 @@ public class ZdarzenieGui implements ActionListener {
         else if (e.getActionCommand().equals("generujPDF")){
             System.out.println("Generuje PDF");
             this.widok.zapiszPDF(this.widok.podgladWynikow);
-
-
         }
 
         else if (e.getActionCommand().equals("addRekord")) {
