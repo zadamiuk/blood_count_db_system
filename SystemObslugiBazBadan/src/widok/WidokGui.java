@@ -57,22 +57,35 @@ public class WidokGui extends JFrame {
         this.createGui();
     }
 
+    /**
+     * Metoda zwracająca wprowadzony przez użytkownika PESEL w formacie Integer - dla okna Dodaj
+     * @return wprowadzony przez użytkownika PESEL w formacie Integer
+     */
     public int getPESEL(){
         try{
             return Integer.parseInt(this.TextPESEL.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null,"Błednie wpisany PESEL");
+            JOptionPane.showMessageDialog(null,"Błednie wpisany PESEL", "Błąd - PESEL", JOptionPane.INFORMATION_MESSAGE);
         }
         return -1;
     }
 
-
-    public String getSprawdzPESEL(){
-        return this.TextSprawdzPESEL.getText();
+    /**
+     * Metoda zwracająca wprowadzony przez użytkownika PESEL w formacie Integer - dla okna Przeglądaj
+     * @return wprowadzony przez użytkownika PESEL w formacie Integer
+     */
+    public int getSprawdzPESEL(){
+        try {
+            return Integer.parseInt(this.TextSprawdzPESEL.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Błednie wpisany PESEL", "Błąd - PESEL", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return -1;
     }
 
     /**
      * Metoda tworzaca pacjenta na podstawie pol edycyjnych
+     * @return Pacjent stworzony na podstawie pól edycyjnych
      */
     public Pacjent getPacjent(){
         Pacjent p = null;
@@ -86,7 +99,7 @@ public class WidokGui extends JFrame {
 
             p = new Pacjent(PESEL, nazwisko, imie, plec, wiek);
         }catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"Błedne dane Pacjenta");
+            JOptionPane.showMessageDialog(null,"Błedne dane Pacjenta", "Błąd - dane pacjenta", JOptionPane.INFORMATION_MESSAGE);
         }
 
         return(p);
@@ -114,6 +127,7 @@ public class WidokGui extends JFrame {
 
     /**
      * Metoda tworzaca badanie na podstawie pol edycyjnych
+     * @return Badanie utworzone na podstawie pol edycyjnych
      */
     public Badanie getBadanie(){
         Badanie b = null;
@@ -133,6 +147,10 @@ public class WidokGui extends JFrame {
         return (b);
     }
 
+    /**
+     * Metoda zwracająca znalezione dla danego pacjenta wyniki badań
+     * @param znalezioneWyniki wyniki badań danego pacjenta znalezione w bazie danych
+     */
     public void setWyniki (ArrayList<Badanie> znalezioneWyniki){
         if (znalezioneWyniki != null)
             this.wyniki = znalezioneWyniki;
@@ -157,10 +175,10 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda zapisująca raport z badania do pliku PDF
+     * Metoda zapisująca raport z badania do pliku TXT
      * @param poleTekstowe
      */
-    public void zapiszPDF(JTextArea poleTekstowe)  {
+    public void zapiszTXT(JTextArea poleTekstowe)  {
         String text = poleTekstowe.getText();
 
         FileWriter file = null;
@@ -169,7 +187,9 @@ public class WidokGui extends JFrame {
             BufferedWriter raport = new BufferedWriter(file);
             raport.append(text);
             raport.close();
+            JOptionPane.showMessageDialog(null,"Plik został zapisany!", "Zapisywanie raportu", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Nie udało się zapisać pliku.", "Błąd przy zapisywaniu", JOptionPane.INFORMATION_MESSAGE);
             e.printStackTrace();
         }
 
@@ -468,12 +488,11 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda odpowiedzialna za tworzenie okna z przegladaniem Badan
+     * Metoda odpowiedzialna za tworzenie okna z przegladarką badań krwi
      */
     public void oknoPrzegladaj(){
-        /*
-         * Okno do przeglądania badań pacjenta, którego PESEL zostanie wprowadzony
-         */
+
+        // Okno do przeglądania badań pacjenta, którego PESEL zostanie wprowadzony
         przegladajFrame = new JFrame("Przegladarka badan");
         przegladajFrame.setSize(600,450);
         
@@ -509,9 +528,8 @@ public class WidokGui extends JFrame {
         peselPanel.add(Box.createRigidArea(new Dimension(0,40)));
 
         if (wyniki != null) {
-            /*
-             * Panel do sprawdzania wyników danego pacjenta
-             */
+
+            // Panel do sprawdzania wyników danego pacjenta
             JPanel przegladajPanel = new JPanel();
             przegladajPanel.setLayout(new BoxLayout(przegladajPanel, BoxLayout.X_AXIS));
             mainPanel.add(przegladajPanel);
@@ -520,23 +538,20 @@ public class WidokGui extends JFrame {
              * Lewy panel służacy do wprowadzania nr PESEL i wyboru badania (lewa strona)
              */
             JPanel lewyPrzegladaj = new JPanel();
-            //lewyPrzegladaj.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
             lewyPrzegladaj.setBorder(BorderFactory.createTitledBorder("Wyszukane badania"));
             lewyPrzegladaj.setLayout(new BoxLayout(lewyPrzegladaj, BoxLayout.Y_AXIS));
             przegladajPanel.add(lewyPrzegladaj);
-
 
             JPanel subpanel = new JPanel();
             subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
             lewyPrzegladaj.add(subpanel);
 
             /*
-             * Prawy Panel odpowiedzialny za podgląd wybranego badania
+             * Prawy Panel odpowiedzialny za podgląd wybranego badania (prawa strona)
              */
             JPanel prawyPrzegladaj = new JPanel();
             prawyPrzegladaj.setBorder(BorderFactory.createTitledBorder("Podgląd badania"));
             prawyPrzegladaj.setLayout(new BoxLayout(prawyPrzegladaj, BoxLayout.Y_AXIS));
-            //prawyPrzegladaj.setBorder(BorderFactory.createLineBorder(Color.decode("#EA6B66")));
             przegladajPanel.add(prawyPrzegladaj);
 
             String [] daty = new String [wyniki.size()];
@@ -566,8 +581,8 @@ public class WidokGui extends JFrame {
             subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.X_AXIS));
             prawyPrzegladaj.add(subpanel);
 
-            sprawdzWyniki = new JButton("Wygeneruj raport PDF");
-            sprawdzWyniki.setActionCommand("generujPDF");
+            sprawdzWyniki = new JButton("Wygeneruj raport TXT");
+            sprawdzWyniki.setActionCommand("generujTXT");
             sprawdzWyniki.setBackground(Color.decode("#EA6B66"));
             sprawdzWyniki.setMargin(new Insets(0, 10, 0, 10));
             sprawdzWyniki.setPreferredSize(new Dimension(100,20));
@@ -599,7 +614,6 @@ public class WidokGui extends JFrame {
 
         przegladajFrame.add(mainPanel);
         przegladajFrame.setVisible(true);
-        //this.setSize(400,250);
 
     }
 
@@ -608,15 +622,12 @@ public class WidokGui extends JFrame {
      */
     private void createGui(){
 
-        /*
-         * Panel okna startowego aplikacji
-         */
+        //Panel okna startowego aplikacji
         this.setTitle("ZUAL");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400,250);
-        /*
-         * Panel tytułowy
-         */
+
+        //Panel tytułowy
         JPanel welcomeMessage = new JPanel();
         welcomeMessage.setSize(250, 150);
         GridLayout opisGrid = new GridLayout(2,1,0,0);
@@ -633,9 +644,7 @@ public class WidokGui extends JFrame {
 
         this.add(welcomeMessage,BorderLayout.CENTER);
 
-        /*
-         * Panel z przyciskami do wyboru funkcji, z której funkcji chce korzystać użytkownik
-         */
+        //Panel z przyciskami do wyboru funkcji, z której funkcji chce korzystać użytkownik
         JPanel buttons = new JPanel();
 
         this.bPrzegladaj = new JButton("Przegladaj");
@@ -655,6 +664,10 @@ public class WidokGui extends JFrame {
 
     }
 
+    /**
+     * Metoda ustawiająca kontroler aplikacji
+     * @param z Kontroler - zdarzenie
+     */
     public void setController(ZdarzenieGui z) {
         if (bDodaj != null && this.bDodaj.getActionListeners().length == 0)
             this.bDodaj.addActionListener(z);
@@ -667,5 +680,4 @@ public class WidokGui extends JFrame {
         if (sprawdzPacjent != null)
             this.sprawdzPacjent.addActionListener(z);
     }
-
 }

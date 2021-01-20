@@ -42,23 +42,22 @@ public class ZdarzenieGui implements ActionListener {
             System.out.println("Wybrano opcję - Przeglądaj");
         }
 
-        else if (e.getActionCommand().equals("dodajBadanie")){
-            this.widok.oknoDodaj();
-            this.widok.setController(this);
-            System.out.println("Wybrano opcję - Dodaj badanie");
-        }
-
         else if (e.getActionCommand().equals("sprawdzWyniki")){
-            System.out.println("Szukam pacjenta...");
+            System.out.println("Szukam pacjenta podanym numerem PESEL...");
             this.widok.setWyniki(this.model.findBadanie(this.widok.getSprawdzPESEL()));
             this.widok.przegladajFrame.dispatchEvent(new WindowEvent(this.widok.przegladajFrame, WindowEvent.WINDOW_CLOSING));
             this.widok.oknoPrzegladaj();
             this.widok.setController(this);
         }
 
-        else if (e.getActionCommand().equals("generujPDF")){
-            System.out.println("Generuje PDF");
-            this.widok.zapiszPDF(this.widok.podgladWynikow);
+        else if (e.getActionCommand().equals("generujTXT")){
+            this.widok.zapiszTXT(this.widok.podgladWynikow);
+        }
+
+        else if (e.getActionCommand().equals("dodajBadanie")){
+            this.widok.oknoDodaj();
+            this.widok.setController(this);
+            System.out.println("Wybrano opcję - Dodaj badanie");
         }
 
         else if (e.getActionCommand().equals("addRekord")) {

@@ -300,7 +300,7 @@ public class Model {
      * @param PESEL atrybut szukający
      * @return
      */
-    public ArrayList<Badanie> findBadanie(String PESEL){
+    public ArrayList<Badanie> findBadanie(int PESEL){
 
         ArrayList<Badanie> badania = new ArrayList<Badanie>();
 
@@ -328,7 +328,7 @@ public class Model {
              */
             try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Badanie WHERE PESELBADANIE =?")){
 
-                stmt.setString(1, PESEL);
+                stmt.setInt(1, PESEL);
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next() == false) {
