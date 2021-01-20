@@ -81,7 +81,7 @@ public class ZdarzenieGui implements ActionListener {
                 }
             }
 
-            this.widok.clearGui();
+            this.widok.clearOknoDodaj();
 
         }
 

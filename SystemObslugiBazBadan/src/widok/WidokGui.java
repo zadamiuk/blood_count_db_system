@@ -161,11 +161,11 @@ public class WidokGui extends JFrame {
     /**
      * Metoda odpowiedzialna za oczyszczanie pól tekstowych
      */
-    public void clearGui(){
-        this.TextPESEL.setText(null);
-        this.TextNazwisko.setText(null);
-        this.TextImie.setText(null);
-        this.TextPlec.setText(null);
+    public void clearOknoDodaj(){
+        this.TextPESEL.setText("123456");
+        this.TextNazwisko.setText("Kowalski");
+        this.TextImie.setText("Jan");
+        this.TextPlec.setText("M");
         this.TextWiek.setText(null);
         this.TextData.setText("DD.MM.YYYY");
         this.TextLeuko.setText(null);
