@@ -1,20 +1,20 @@
 package model;
 
 /**
- *  Klasa reprezentujaca badanie
+ *  Klasa reprezentujaca Badanie
  */
 public class Badanie {
 
     private int idBadania;
-    private String pesel;
-    private String dataBadania; //poczytac jaki typ
+    private int pesel;
+    private String dataBadania;
     private float leukocyty;
     private float erytrocyty;
     private float trombocyty;
     private float monocyty;
     private float limfocyty;
 
-    public Badanie(String PESEL, String dataBadania, float leuk, float e, float  t, float m, float limf){
+    public Badanie(int PESEL, String dataBadania, float leuk, float e, float  t, float m, float limf){
         this.pesel = PESEL;
         this.dataBadania = dataBadania;
         this.leukocyty = leuk;
@@ -32,11 +32,11 @@ public class Badanie {
         this.idBadania = idBadania;
     }
 
-    public String getPesel() {
+    public int getPesel() {
         return pesel;
     }
 
-    public void setPesel(String pesel) {
+    public void setPesel(int pesel) {
         this.pesel = pesel;
     }
 

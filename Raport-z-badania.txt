@@ -1,0 +1,13 @@
+Dane pacjenta 
+PESEL: 980516
+Nazwisko: Krakowiak
+Imie: Aleksandra
+Plec: K
+Wiek: 22
+
+Data badania: 07.01.2020
+Leukocyty: 2.0tys/µl   (norma 3,8-10 tys/µl)
+Erytrocyty: 3.0mln/µl   (norma 3,8 - 5,8 mln/µl)
+Trombocyty: 4.0tys/µl   (norma 140-440 tys/µl)
+Monoocyty: 5.0tys/µl   (norma 0,2-1 tys/µl)
+Limfocyty: 6.0tys/µl   (norma 1-3,5 tys/µl)

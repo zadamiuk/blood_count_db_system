@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,6 +18,12 @@ public class Model {
     public static final String DB_URL="jdbc:derby:BazaBadan;create=true";
     public static final String DB_USER="";
     public static final String DB_PASSWORD="";
+
+    /**
+     * Konstruktor
+     */
+    public Model(){
+    }
 
     /**
      * Metoda odpowiedzialna za połaczenie i stworzenie bazy oraz uzupełnienie początkowymi danymi
@@ -54,16 +61,16 @@ public class Model {
                 {
                     stmt.execute("CREATE TABLE Pacjent (idPacjent INTEGER NOT NULL PRIMARY KEY " +
                             "GENERATED ALWAYS AS IDENTITY (START WITH 1,INCREMENT BY 1)," +
-                            "PESEL VARCHAR(128) NOT NULL UNIQUE," +
+                            "PESEL INT NOT NULL UNIQUE," +
                             "Nazwisko VARCHAR(128) NOT NULL," +
                             "Imie VARCHAR(128) NOT NULL," +
                             "Plec VARCHAR(1) NOT NULL," +
                             "Wiek INTEGER NOT NULL )");
 
                     stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
-                            "VALUES ('980516','Krakowiak','Aleksandra','K',22)");
+                            "VALUES (980516,'Krakowiak','Aleksandra','K',22)");
                     stmt.executeUpdate("INSERT INTO Pacjent (PESEL, Nazwisko, Imie, Plec, Wiek) " +
-                            "VALUES ('990205','Adamiuk','Zuzanna','K',21)");
+                            "VALUES (990205,'Adamiuk','Zuzanna','K',21)");
 
                     System.out.println("Utworzono tabele Pacjent");
                 }
@@ -71,7 +78,7 @@ public class Model {
                 if (!tableExists(conn,"Badanie"))
                 {
                     stmt.execute("CREATE TABLE Badanie (idBadania INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
-                            "PESELBadanie VARCHAR(128) NOT NULL REFERENCES Pacjent(PESEL)," +
+                            "PESELBadanie INT NOT NULL REFERENCES Pacjent(PESEL)," +
                             "DataBadania VARCHAR(128) NOT NULL," +
                             "Leukocyty FLOAT NOT NULL," +
                             "Erytrocyty FLOAT NOT NULL," +
@@ -81,18 +88,15 @@ public class Model {
 
                     stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty," +
                             "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
-                            "VALUES ('980516','07.01.2020',2,3,4,5,6)");
+                            "VALUES (980516,'07.01.2020',2,3,4,5,6)");
 
+                    stmt.executeUpdate("INSERT INTO Badanie (PESELBadanie, DataBadania, Leukocyty," +
+                            "Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY)" +
+                            "VALUES (990205,'07.01.2020',2,3,4,5,6)");
 
                     System.out.println("Utworzono tabele Badanie");
                 }
 
-
-            /*catch (SQLException e)
-            {
-                System.out.println("Blad przy wykonywaniu polecania\n");
-                e.printStackTrace();
-            }*/
         }
         catch (SQLException e)
         {
@@ -123,7 +127,7 @@ public class Model {
     }
 
     /**
-     * Metoda do dodawania obiektów do bazy danych
+     * Metoda do dodawania Pacjneta do bazy danych
      * @param p Pacjent
      */
     public void addPacjent(Pacjent p){
@@ -150,7 +154,7 @@ public class Model {
              */
             try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Pacjent(PESEL, Nazwisko, Imie, Plec, Wiek) " +
                     "VALUES (?,?,?,?,?)")) {
-                stmt.setString(1, p.getPesel());
+                stmt.setString(1, String.valueOf(p.getPesel()));
                 stmt.setString(2, p.getNazwisko());
                 stmt.setString(3, p.getImie());
                 stmt.setString(4, p.getPlec());
@@ -170,7 +174,7 @@ public class Model {
     }
 
     /**
-     * Metodado dodawania obiektów do bazy danych
+     * Metoda do dodawania Badania do bazy danych
      * @param b Badanie
      */
     public void addBadanie(Badanie b){
@@ -197,7 +201,7 @@ public class Model {
              */
             try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Badanie (PESELBadanie, DataBadania, " +
                     "Leukocyty, Erytrocyty, Trombocyty, Monocyty, LIMFOCYTY) VALUES (?,?,?,?,?,?,?)")){
-                stmt.setString(1, b.getPesel());
+                stmt.setString(1, String.valueOf(b.getPesel()));
                 stmt.setString(2, b.getDataBadania());
                 stmt.setString(3, String.valueOf(b.getLeukocyty()));
                 stmt.setString(4, String.valueOf(b.getErytrocyty()));
@@ -224,7 +228,7 @@ public class Model {
      * @param PESEL atrybut szukający
      * @return
      */
-    public Pacjent findPacjent(String PESEL){
+    public Pacjent findPacjent(int PESEL){
 
         Pacjent p = null;
 
@@ -252,7 +256,7 @@ public class Model {
              */
             try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Pacjent WHERE PESEL =?")){
 
-                stmt.setString(1, PESEL);
+                stmt.setString(1, String.valueOf(PESEL));
 
 
                 ResultSet rs = stmt.executeQuery();
@@ -260,7 +264,7 @@ public class Model {
                     System.out.println("Taki pacjent jeszcze nie istnieje");
                     return null;
                 } else {
-                    p = new Pacjent(rs.getString("PESEL"),
+                    p = new Pacjent(rs.getInt("PESEL"),
                             rs.getString("Nazwisko"), rs.getString("Imie"),
                             rs.getString("Plec"), rs.getInt("Wiek"));
                     System.out.println(p.getNazwisko());
@@ -283,7 +287,7 @@ public class Model {
      * @param pesel atrybut sprawdzajacy
      * @return
      */
-    public boolean checkPacjent(String pesel) {
+    public boolean checkPacjent(int pesel) {
         if (findPacjent(pesel)!= null) {
             return true;
         }
@@ -332,7 +336,7 @@ public class Model {
                     return null;
                 } else {
                     do {
-                        Badanie b = new Badanie(rs.getString("PESELBADANIE"),
+                        Badanie b = new Badanie(rs.getInt("PESELBADANIE"),
                                 rs.getString("dataBadania"), rs.getFloat("Leukocyty"),
                                 rs.getFloat("Erytrocyty"), rs.getFloat("Trombocyty"),
                                 rs.getFloat("Monocyty"), rs.getFloat("Limfocyty"));
@@ -355,10 +359,6 @@ public class Model {
             e.printStackTrace();
         }
         return badania;
-    }
-
-
-    public Model(){
     }
 
 }
