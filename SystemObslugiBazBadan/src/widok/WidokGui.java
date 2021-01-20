@@ -85,6 +85,13 @@ public class WidokGui extends JFrame {
     }
 
     /**
+     * Metoda wyświetlająca okno informujące o braku pacjenta w bazie
+     */
+    public void brakPESEL(){
+        JOptionPane.showMessageDialog(null, "Brak pacjenta w bazie danych");
+    }
+
+    /**
      * Metoda tworzaca pacjenta na podstawie pol edycyjnych
      * @return Pacjent stworzony na podstawie pól edycyjnych
      */
@@ -155,7 +162,6 @@ public class WidokGui extends JFrame {
     public void setWyniki (ArrayList<Badanie> znalezioneWyniki){
         if (znalezioneWyniki != null)
             this.wyniki = znalezioneWyniki;
-        else this.wyniki.add(new Badanie(0, "00-00-00", 0,0,0,0,0));
     }
 
     /**
@@ -602,11 +608,11 @@ public class WidokGui extends JFrame {
                                                         "\nPlec: " + model.findPacjent(wyniki.get(i).getPesel()).getPlec() +
                                                         "\nWiek: " + model.findPacjent(wyniki.get(i).getPesel()).getWiek() +
                                                         "\n\nData badania: " + wyniki.get(i).getDataBadania() +
-                                                        "\nLeukocyty: " + wyniki.get(i).getLeukocyty() + "tys/µl   (norma 3,8-10 tys/µl)" +
-                                                        "\nErytrocyty: " + wyniki.get(i).getErytrocyty() + "mln/µl   (norma 3,8 - 5,8 mln/µl)" +
-                                                        "\nTrombocyty: " + wyniki.get(i).getTrombocyty() + "tys/µl   (norma 140-440 tys/µl)" +
-                                                        "\nMonoocyty: " + wyniki.get(i).getMonocyty() + "tys/µl   (norma 0,2-1 tys/µl)" +
-                                                        "\nLimfocyty: " + wyniki.get(i).getLimfocyty() + "tys/µl   (norma 1-3,5 tys/µl)");
+                                                        "\nLeukocyty: " + wyniki.get(i).getLeukocyty() + " tys/µl   (norma 3,8-10 tys/µl)" +
+                                                        "\nErytrocyty: " + wyniki.get(i).getErytrocyty() + " mln/µl   (norma 3,8 - 5,8 mln/µl)" +
+                                                        "\nTrombocyty: " + wyniki.get(i).getTrombocyty() + " tys/µl   (norma 140-440 tys/µl)" +
+                                                        "\nMonoocyty: " + wyniki.get(i).getMonocyty() + " tys/µl   (norma 0,2-1 tys/µl)" +
+                                                        "\nLimfocyty: " + wyniki.get(i).getLimfocyty() + " tys/µl   (norma 1-3,5 tys/µl)");
                         }
                     }
                 }

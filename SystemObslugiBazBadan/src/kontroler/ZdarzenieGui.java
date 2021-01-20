@@ -45,10 +45,15 @@ public class ZdarzenieGui implements ActionListener {
 
         else if (e.getActionCommand().equals("sprawdzWyniki")){
             System.out.println("Szukam pacjenta podanym numerem PESEL...");
-            this.widok.setWyniki(this.model.findBadanie(this.widok.getSprawdzPESEL()));
-            this.widok.przegladajFrame.dispatchEvent(new WindowEvent(this.widok.przegladajFrame, WindowEvent.WINDOW_CLOSING));
-            this.widok.oknoPrzegladaj();
-            this.widok.setController(this);
+            if (this.model.findBadanie(this.widok.getSprawdzPESEL()) != null) {
+                this.widok.setWyniki(this.model.findBadanie(this.widok.getSprawdzPESEL()));
+                this.widok.przegladajFrame.dispatchEvent(new WindowEvent(this.widok.przegladajFrame, WindowEvent.WINDOW_CLOSING));
+                this.widok.oknoPrzegladaj();
+                this.widok.setController(this);
+            } else {
+                this.widok.brakPESEL();
+            }
+
         }
 
         else if (e.getActionCommand().equals("generujTXT")){
@@ -85,7 +90,7 @@ public class ZdarzenieGui implements ActionListener {
 
         }
 
-        else if (e.getActionCommand().equals("checkPacjent")){
+        else if (e.getActionCommand().equals("checkPacjent")) {
             this.widok.setPacjent(this.model.findPacjent(this.widok.getPESEL()));
         }
 
