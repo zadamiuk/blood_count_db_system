@@ -40,7 +40,7 @@ public class WidokGui extends JFrame {
 
     /**
      * Konstruktor
-     * @param m
+     * @param m Model
      */
     public WidokGui(Model m){
 
@@ -50,7 +50,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda zwracająca wprowadzony przez użytkownika PESEL w formacie Integer - dla okna Dodaj
+     * Metoda zwracajaca wprowadzony przez uzytkownika PESEL w formacie Integer - dla okna Dodaj
      * @return wprowadzony przez użytkownika PESEL w formacie Integer
      */
     public int getPESEL(){
@@ -63,7 +63,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda zwracająca wprowadzony przez użytkownika PESEL w formacie Integer - dla okna Przeglądaj
+     * Metoda zwracajaca wprowadzony przez użytkownika PESEL w formacie Integer - dla okna Przeglądaj
      * @return wprowadzony przez użytkownika PESEL w formacie Integer
      */
     public int getSprawdzPESEL(){
@@ -76,7 +76,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda wyświetlająca okno informujące o braku pacjenta w bazie
+     * Metoda wyswietlająca okno informujace o braku pacjenta w bazie
      */
     public void brakPESEL(){
         JOptionPane.showMessageDialog(null, "Brak pacjenta w bazie danych");
@@ -105,8 +105,8 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda ustawiająca pola edycyjne na podstawie Pacjenta
-     * @param p
+     * Metoda ustawiajaca pola edycyjne na podstawie Pacjenta
+     * @param p Pacjent
      */
     public void setPacjent(Pacjent p){
         if (p!=null){
@@ -147,8 +147,8 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda zwracająca znalezione dla danego pacjenta wyniki badań
-     * @param znalezioneWyniki wyniki badań danego pacjenta znalezione w bazie danych
+     * Metoda zwracajaca znalezione dla danego pacjenta wyniki badan
+     * @param znalezioneWyniki wyniki badan danego pacjenta znalezione w bazie danych
      */
     public void setWyniki (ArrayList<Badanie> znalezioneWyniki){
         if (znalezioneWyniki != null)
@@ -156,7 +156,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda odpowiedzialna za oczyszczanie pól tekstowych
+     * Metoda odpowiedzialna za oczyszczanie pol tekstowych
      */
     public void clearOknoDodaj(){
         this.TextPESEL.setText("123456");
@@ -173,8 +173,8 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda zapisująca raport z badania do pliku TXT
-     * @param poleTekstowe
+     * Metoda zapisujaca raport z badania do pliku TXT
+     * @param poleTekstowe JTextArea
      */
     public void zapiszTXT(JTextArea poleTekstowe)  {
         String text = poleTekstowe.getText();
@@ -194,7 +194,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda odpowiedzialna za tworzenie okna z mozliwościa dodawania
+     * Metoda odpowiedzialna za tworzenie okna z mozliwoscia dodawania
      * nowego Badania lub/i Pacjenta
      */
     public void oknoDodaj(){
@@ -486,7 +486,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda odpowiedzialna za tworzenie okna z przegladarką badań krwi
+     * Metoda odpowiedzialna za tworzenie okna z przegladarka badań krwi
      */
     public void oknoPrzegladaj(){
 
@@ -663,7 +663,7 @@ public class WidokGui extends JFrame {
     }
 
     /**
-     * Metoda ustawiająca kontroler aplikacji
+     * Metoda ustawiajaca kontroler aplikacji
      * @param z Kontroler - zdarzenie
      */
     public void setController(ZdarzenieGui z) {

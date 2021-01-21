@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 
 
 /**
- * Klasa reprezentująca zdarzenia występujące w aplikacji
+ * Klasa reprezentujaca zdarzenia wystepujace w aplikacji
  */
 public class ZdarzenieGui implements ActionListener {
 
@@ -21,8 +21,8 @@ public class ZdarzenieGui implements ActionListener {
 
     /**
      * Konstruktor
-     * @param w
-     * @param m
+     * @param w widok
+     * @param m model
      */
     public ZdarzenieGui(WidokGui w, Model m){
         this.widok = w;
@@ -31,7 +31,7 @@ public class ZdarzenieGui implements ActionListener {
 
 
     /**
-     * metoda odpowiedzialna za wystepowanie zdarzeń
+     * metoda odpowiedzialna za wystepowanie zdarzen
      * @param e
      */
     @Override

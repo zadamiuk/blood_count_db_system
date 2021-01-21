@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 /**
- * Klasa reprezentująca Model
+ * Klasa reprezentujaca Model
  */
 public class Model {
 
@@ -24,7 +24,7 @@ public class Model {
     }
 
     /**
-     * Metoda odpowiedzialna za połaczenie i stworzenie bazy oraz uzupełnienie początkowymi danymi
+     * Metoda odpowiedzialna za polaczenie i stworzenie bazy oraz uzupelnienie poczatkowymi danymi
      */
     public void ConnCreateInsert(){
 
@@ -104,7 +104,7 @@ public class Model {
     }
 
     /**
-     * Funkcja sprawdzająca czy istnieje tabela o podanej nazwie
+     * Funkcja sprawdzajaca czy istnieje tabela o podanej nazwie
      * @param conn otwarte polaczenie
      * @param tableName nazwa tabeli
      * @return
@@ -223,8 +223,8 @@ public class Model {
 
     /**
      * Metoda szukajaca czy dany Pacjent istnieje w bazie
-     * @param PESEL atrybut szukający
-     * @return
+     * @param PESEL atrybut szukajacy
+     * @return Pacjent
      */
     public Pacjent findPacjent(int PESEL){
 
@@ -294,8 +294,8 @@ public class Model {
 
 
     /**
-     * Metoda szukajaca czy istnieją badania dla danego numeru PESEL
-     * @param PESEL atrybut szukający
+     * Metoda szukajaca czy istnieja badania dla danego numeru PESEL
+     * @param PESEL atrybut szukajacy
      * @return
      */
     public ArrayList<Badanie> findBadanie(int PESEL){
