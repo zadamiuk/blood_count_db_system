@@ -15,6 +15,7 @@ public class Badanie {
     private float limfocyty;
 
     public Badanie(int PESEL, String dataBadania, float leuk, float e, float  t, float m, float limf){
+
         this.pesel = PESEL;
         this.dataBadania = dataBadania;
         this.leukocyty = leuk;

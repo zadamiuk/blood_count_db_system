@@ -4,6 +4,7 @@ package model;
  *  Klasa reprezentujaca Pacjenta
  */
 public class Pacjent {
+
     private int id;
     private int pesel;
     private String nazwisko;
@@ -12,6 +13,7 @@ public class Pacjent {
     private int wiek;
 
     public Pacjent(int PESEL, String nazwisko, String imie, String plec, int wiek){
+
         this.pesel = PESEL;
         this.nazwisko = nazwisko;
         this.imie = imie;

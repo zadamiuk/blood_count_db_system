@@ -1,10 +1,8 @@
 package model;
 
-import javax.swing.*;
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Klasa reprezentująca Model

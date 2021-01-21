@@ -11,15 +11,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-
-//import org.apache.pdfbox.pdmodel.PDDocument;
-//import org.apache.pdfbox.pdmodel.PDPage;
-
-//mport org.apache.pdfbox.pdmodel.PDPageContentStream;
-
-//import org.apache.pdfbox.pdmodel.font.PDFont;
-//import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
 import java.io.FileWriter;
 
 
